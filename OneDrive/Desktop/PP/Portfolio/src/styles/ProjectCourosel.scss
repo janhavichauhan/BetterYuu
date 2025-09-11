@@ -1,0 +1,75 @@
+@import "./variables";
+
+.projects {
+  padding: 6rem 2rem;
+  background: var(--primary-bg);
+  color: var(--foreground);
+  text-align: center;
+
+  .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--primary);
+  }
+
+  &__carousel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  &__card {
+    background: #1a1a1a;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 600px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+    text-align: left;
+
+    h3 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: #bbb;
+    }
+
+    .tech-list {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+
+      li {
+        background: var(--muted);
+        padding: 0.3rem 0.6rem;
+        border-radius: 5px;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  &__controls {
+    display: flex;
+    gap: 1rem;
+
+    button {
+      background: var(--muted);
+      color: var(--primary);
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background 0.3s;
+
+      &:hover {
+        background: var(--primary);
+        color: #000;
+      }
+    }
+  }
+}

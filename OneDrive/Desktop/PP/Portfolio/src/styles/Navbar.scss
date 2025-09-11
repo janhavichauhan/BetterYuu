@@ -1,0 +1,34 @@
+@import "./variables";
+
+.navbar {
+  background-color: $card-bg;
+  border-bottom: 1px solid $card-border;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: $font-primary;
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $accent-color;
+  }
+
+  ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+
+    li a {
+      color: $text-primary;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: $accent-color;
+      }
+    }
+  }
+}
