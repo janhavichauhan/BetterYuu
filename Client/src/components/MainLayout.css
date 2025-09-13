@@ -1,0 +1,64 @@
+.main-layout {
+  min-height: 100vh;
+  background-color: white;
+}
+
+.main-content {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Global styles for consistent theming */
+:root {
+  --primary-purple: #8B5CF6;
+  --primary-purple-dark: #7C3AED;
+  --primary-purple-light: #E879F9;
+  --accent-pink: #EC4899;
+  --accent-pink-light: #F472B6;
+  --success-green: #10B981;
+  --success-teal: #14B8A6;
+  --text-dark: #1E1B4B;
+  --text-gray: #6B7280;
+  --background-light: #FEF3C7;
+  --border-light: #E5E7EB;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  color: var(--text-dark);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 700;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+  }
+}
