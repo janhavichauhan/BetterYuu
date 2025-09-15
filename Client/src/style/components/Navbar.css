@@ -11,7 +11,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1700px;
   margin: 0 auto;
   position: relative;
 }
@@ -30,7 +30,7 @@
 
 .brand-text {
   color: #8B5CF6;
-  font-size: 10vh;
+  font-size: 5vh;
   font-weight: 700;
   margin: 0;
 }
@@ -44,14 +44,23 @@
 .nav-link {
   color: #B36ED8;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 1rem;
-  transition: color 0.3s ease;
-  padding: 0.5rem 0;
+  transition: all 0.25s ease;
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
 }
 
 .nav-link:hover {
-  color: #7C3AED;
+  color: #8B5CF6;
+  background-color: #FEF3C7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link.active {
+  color: #8B5CF6;
+  background-color: #FEF3C7;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-right {
@@ -67,28 +76,37 @@
 }
 
 .search-input {
-  padding: 0.75rem 1rem;
-  padding-left: 2.5rem;
-  border: none;
-  border-radius: 12px;
-  background-color: #FEF3C7;
+  height: 56px;
+  padding: 0 1.25rem;
+  padding-left: 2.75rem;
+  width: 380px;
+  border: 1px solid #F1EAE2;
+  border-radius: 16px;
+  background-color: #FBF5EF;
   color: #8B5CF6;
-  font-size: 0.9rem;
-  width: 200px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-size: 1.05rem;
+  line-height: 1;
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.12);
   outline: none;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .search-input::placeholder {
   color: #8B5CF6;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .search-icon {
   position: absolute;
-  left: 0.75rem;
+  left: 0.9rem;
   color: #8B5CF6;
-  font-size: 1rem;
+  font-size: 1.15rem;
+  opacity: 0.9;
+}
+
+.search-input:focus {
+  border-color: #EADFD4;
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.16);
 }
 
 .join-button {

@@ -7,7 +7,7 @@
 }
 
 .hero-container {
-  max-width: 1200px;
+  max-width: 2200px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -17,7 +17,7 @@
 
 .hero-illustration {
   width: 100%;
-  max-width: 669px;
+  max-width: 1200px;
   margin-bottom: 3rem;
   display: flex;
   justify-content: center;
@@ -26,12 +26,12 @@
 .hero-svg {
   width: 100%;
   height: auto;
-  max-width: 669px;
-  max-height: 341px;
+  max-width: 1600px;
+  max-height: 800px;
 }
 
 .hero-content {
-  max-width: 600px;
+  max-width: 1200px;
 }
 
 .hero-headline {
@@ -40,6 +40,7 @@
   color: #40497A;
   margin-bottom: 1.5rem;
   line-height: 1.2;
+
   white-space: nowrap;
 }
 
@@ -83,5 +84,11 @@
   .hero-svg {
     max-width: 500px;
     max-height: 255px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .hero-headline {
+    font-size: 5rem;
   }
 }
