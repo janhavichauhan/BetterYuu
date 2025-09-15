@@ -11,15 +11,16 @@
 
 .section-divider {
   width: 100%;
-  height: 2px;
-  background-color: #E879F9;
+  height: 8px;
+  background: #B36ED83D;
   margin-bottom: 3rem;
+  border-radius: 4px;
 }
 
 .features-headline {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #1E1B4B;
+  color: #40497A;
   margin: 0;
   line-height: 1.3;
 }
