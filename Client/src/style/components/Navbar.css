@@ -22,9 +22,15 @@
   z-index: 1001;
 }
 
+/* Logo image sizing */
+.brand-logo {
+  height: 8vh;
+  width: auto;
+}
+
 .brand-text {
   color: #8B5CF6;
-  font-size: 5vh;
+  font-size: 10vh;
   font-weight: 700;
   margin: 0;
 }
@@ -245,6 +251,10 @@
   .brand-text {
     font-size: 1.3rem;
   }
+
+  .brand-logo {
+    height: 32px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -275,6 +285,10 @@
   
   .brand-text {
     font-size: 1.2rem;
+  }
+
+  .brand-logo {
+    height: 28px;
   }
 }
 

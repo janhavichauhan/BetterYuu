@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../style/components/Navbar.css';
-import logoNavbar from '../assets/logo-navbar.svg';
+import brandSvg from '../assets/Better-Yuu.svg';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,7 +49,7 @@ const Navbar = () => {
       <nav className="navbar">
         <div className="navbar-container">
           <div className="navbar-brand">
-            <img src={logoNavbar} alt="Better Yuu Logo" className="brand-logo" />
+            <img src={brandSvg} alt="Better Yuu Logo" className="brand-logo" />
           </div>
           
           <div className={`navbar-links ${isMenuOpen ? 'active' : ''}`}>
