@@ -26,13 +26,14 @@
   position: relative;
   height: 420px;
   margin-top: 1.5rem;
+  perspective: 1000px;
 }
 
 .journey-card {
   position: absolute;
   bottom: 0;
-  width: 22%;
-  height: 260px;
+  width: 18%;
+  height: 240px;
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 10px 18px rgba(0, 0, 0, 0.12);
@@ -41,6 +42,7 @@
   justify-content: center;
   transition: transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.8s ease, box-shadow 0.3s ease, width 0.8s ease, height 0.8s ease, left 0.8s ease, right 0.8s ease;
   will-change: transform, opacity, width, height, left, right;
+  z-index: 1;
 }
 
 .journey-card--primary { background: #E6D7F5; }
@@ -49,16 +51,20 @@
 .journey-card--primary .journey-card-inner { display: none; }
 
 /* Positions */
-.pos-left { left: 10%; opacity: 0.88; transform: translateX(-10%) scale(0.95); }
-.pos-center { left: 50%; transform: translateX(-50%) scale(1); width: 30%; height: 360px; box-shadow: 0 12px 22px rgba(0,0,0,0.16); }
-.pos-right { right: 10%; opacity: 0.88; transform: translateX(10%) scale(0.95); }
+.pos-far-left { left: 0%; opacity: 0.55; transform: translateX(-20%) scale(0.86) rotateY(6deg); z-index: 1; }
+.pos-left { left: 14%; opacity: 0.85; transform: translateX(-10%) scale(0.93) rotateY(3deg); z-index: 2; }
+.pos-center { left: 50%; transform: translateX(-50%) scale(1); width: 34%; height: 360px; box-shadow: 0 12px 22px rgba(0,0,0,0.16); z-index: 3; }
+.pos-right { right: 14%; opacity: 0.85; transform: translateX(10%) scale(0.93) rotateY(-3deg); z-index: 2; }
+.pos-far-right { right: 0%; opacity: 0.55; transform: translateX(20%) scale(0.86) rotateY(-6deg); z-index: 1; }
 
 @media (max-width: 900px) {
   .journey-stage { height: 300px; }
-  .journey-card { width: 42%; height: 180px; }
-  .pos-center { width: 64%; height: 240px; }
-  .pos-left { left: 2%; }
-  .pos-right { right: 2%; }
+  .journey-card { width: 28%; height: 180px; }
+  .pos-center { width: 58%; height: 230px; }
+  .pos-left { left: 4%; }
+  .pos-right { right: 4%; }
+  .pos-far-left { left: 0%; opacity: 0.45; transform: translateX(-14%) scale(0.86); }
+  .pos-far-right { right: 0%; opacity: 0.45; transform: translateX(14%) scale(0.86); }
 }
 
 

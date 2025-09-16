@@ -114,13 +114,13 @@ const TestimonialsSection = () => {
 
   return (
     <section className="testimonials-section">
-      <div className="testimonials-container">
+      <div className="testimonials-container" data-speed="-0.08" data-lag="0.4">
         <div className="testimonials-header">
           <h2 className="testimonials-title">Our Testimonials</h2>
           <div className="testimonials-underline"></div>
         </div>
 
-        <div className="testimonials-grid">
+        <div className="testimonials-grid" data-speed="0.1" data-lag="0.55">
           {testimonials.map((testimonial, index) => (
             testimonial.featured ? (
               <FeaturedTestimonial 

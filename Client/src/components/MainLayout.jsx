@@ -6,6 +6,7 @@ import JourneySection from './JourneySection';
 import TestimonialsSection from './TestimonialsSection';
 import CardsSection from './CardsSection';
 import MissionVisionSection from './MissionVisionSection';
+import FooterSection from './FooterSection';
 import '../style/global/MainLayout.scss';
 
 const MainLayout = ({ children }) => {
@@ -20,6 +21,7 @@ const MainLayout = ({ children }) => {
       <MissionVisionSection />
       <JourneySection />
       <TestimonialsSection />
+      <FooterSection />
       <main className="main-content">
         {children}
       </main>

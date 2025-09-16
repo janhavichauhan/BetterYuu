@@ -5,8 +5,8 @@ import heroSvg from '../assets/Home-page/vision-image.svg';
 const MissionVisionSection = () => {
   return (
     <section className="mission-section">
-      <div className="mission-container">
-        <div className="mission-text">
+      <div className="mission-container" data-speed="-0.1" data-lag="0.45">
+        <div className="mission-text" data-speed="0.06" data-lag="0.35">
           <h2 className="mission-title">Our Mission and Vision</h2>
           <p className="mission-paragraph">
             Yuu was born out of a mission to redefine digital wellness. Unlike social media driven by vanity metrics,
@@ -15,7 +15,7 @@ const MissionVisionSection = () => {
           </p>
           <div className="mission-divider" />
         </div>
-        <div className="mission-illustration">
+        <div className="mission-illustration" data-speed="0.18" data-lag="0.6">
           <img src={heroSvg} alt="Mission and Vision illustration" />
         </div>
       </div>
