@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../style/components/Navbar.css';
+import '../style/components/Navbar.scss';
 import brandSvg from '../assets/Better-Yuu.svg';
 
 const Navbar = () => {

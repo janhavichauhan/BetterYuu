@@ -1,5 +1,5 @@
 import React from 'react';
-import '../style/components/HeroSection.css';
+import '../style/components/HeroSection.scss';
 import heroSvg from '../assets/Home-page/hero-section.svg';
 
 const HeroSection = () => {

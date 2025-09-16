@@ -1,5 +1,5 @@
 import React from 'react';
-import '../style/components/CardsSection.css';
+import '../style/components/CardsSection.scss';
 
 const cardData = [
   { id: 1, title: 'Card One', description: 'Placeholder content' },
