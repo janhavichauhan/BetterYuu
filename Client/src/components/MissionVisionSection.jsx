@@ -1,5 +1,5 @@
 import React from 'react';
-import '../style/components/MissionVisionSection.css';
+import '../style/components/MissionVisionSection.scss';
 import heroSvg from '../assets/Home-page/vision-image.svg';
 
 const MissionVisionSection = () => {
