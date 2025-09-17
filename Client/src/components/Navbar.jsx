@@ -59,6 +59,7 @@ const Navbar = () => {
             <a href="#services" className="nav-link" onClick={handleNavLinkClick}>Services</a>
             <a href="#features" className="nav-link" onClick={handleNavLinkClick}>Features</a>
             <a href="#contact" className="nav-link" onClick={handleNavLinkClick}>Contact us</a>
+            <a href="/forums" className="nav-link" onClick={handleNavLinkClick}>Forums</a>
           </div>
           
           <div className="navbar-right">

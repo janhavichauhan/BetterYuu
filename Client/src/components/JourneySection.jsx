@@ -6,11 +6,31 @@ import '../style/components/JourneySection.scss';
 const JourneySection = () => {
   const [current, setCurrent] = useState(0);
   const steps = [
-    { title: 'Sign Up', description: 'Create your profile and set your growth focus.' },
-    { title: 'Daily Check-in', description: 'Answer simple prompts to reflect and track mood.' },
-    { title: 'Smart Insights', description: 'Get trends and patterns from your reflections.' },
-    { title: 'Action Plans', description: 'Turn insights into small, meaningful actions.' },
-    { title: 'Celebrate Wins', description: 'Review progress and celebrate your growth.' },
+    {
+      title: 'Sign Up',
+      description: 'Create your profile and set your growth focus.',
+      points: ['1-minute onboarding', 'Choose focus areas', 'Personalized tips']
+    },
+    {
+      title: 'Daily Check-in',
+      description: 'Answer simple prompts to reflect and track mood.',
+      points: ['Guided prompts', 'Mood slider', 'Streak tracking']
+    },
+    {
+      title: 'Smart Insights',
+      description: 'Get trends and patterns from your reflections.',
+      points: ['Trend charts', 'Keyword themes', 'Weekly summary']
+    },
+    {
+      title: 'Action Plans',
+      description: 'Turn insights into small, meaningful actions.',
+      points: ['Small tasks', 'Gentle reminders', 'Progress nudges']
+    },
+    {
+      title: 'Celebrate Wins',
+      description: 'Review progress and celebrate your growth.',
+      points: ['Milestone badges', 'Share highlights', 'Look-back recaps']
+    },
   ];
 
   useEffect(() => {
@@ -147,9 +167,25 @@ const JourneySection = () => {
               className={`journey-card ${getPosClass(i)} ${i === current ? 'journey-card--primary' : ''}`}
             >
               <div className="journey-card-inner">
-                <div className="journey-step-index">{String(i + 1).padStart(2, '0')}</div>
-                <h3 className="journey-step-title">{step.title}</h3>
-                <p className="journey-step-desc">{step.description}</p>
+                {i === current ? (
+                  <>
+                    <div className="journey-step-index">{String(i + 1).padStart(2, '0')}</div>
+                    <h3 className="journey-primary-title">{step.title}</h3>
+                    <p className="journey-primary-desc">{step.description}</p>
+                    <ul className="journey-primary-list">
+                      {step.points?.map((pt, idx) => (
+                        <li key={`pt-${i}-${idx}`}>{pt}</li>
+                      ))}
+                    </ul>
+                    <button type="button" className="journey-primary-cta">Learn more</button>
+                  </>
+                ) : (
+                  <>
+                    <div className="journey-step-index">{String(i + 1).padStart(2, '0')}</div>
+                    <h3 className="journey-step-title">{step.title}</h3>
+                    <p className="journey-step-desc">{step.description}</p>
+                  </>
+                )}
               </div>
             </div>
           ))}
