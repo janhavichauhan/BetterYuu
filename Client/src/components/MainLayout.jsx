@@ -16,8 +16,7 @@ const MainLayout = ({ children }) => {
       <HeroSection />
       <FeaturesSection />
 
-      <CardsSection />
-
+      
       <MissionVisionSection />
       <JourneySection />
       <TestimonialsSection />

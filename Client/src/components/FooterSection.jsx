@@ -42,7 +42,6 @@ const FooterSection = () => {
             </div>
           </div>
         </div>
-
         <div className="footer-bottom">
           <div className="footer-copy">© {new Date().getFullYear()} Better Yuu. All rights reserved.</div>
         </div>
