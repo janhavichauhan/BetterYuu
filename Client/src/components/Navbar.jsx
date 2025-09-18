@@ -13,7 +13,8 @@ const Navbar = () => {
     setIsMenuOpen(false);
   };
 
-  // Close menu when clicking on backdrop
+  // Close menu when clicking on backdropc  
+  
   const handleBackdropClick = () => {
     closeMenu();
   };
@@ -53,7 +54,7 @@ const Navbar = () => {
           </div>
           
           <div className={`navbar-links ${isMenuOpen ? 'active' : ''}`}>
-            <a href="#home" className="nav-link" onClick={handleNavLinkClick}>Home</a>
+            <a href="/" className="nav-link" onClick={handleNavLinkClick}>Home</a>
             <a href="#about" className="nav-link" onClick={handleNavLinkClick}>About us</a>
             <a href="#cases" className="nav-link" onClick={handleNavLinkClick}>Cases</a>
             <a href="#services" className="nav-link" onClick={handleNavLinkClick}>Services</a>

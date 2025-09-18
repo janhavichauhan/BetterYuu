@@ -190,17 +190,7 @@ const JourneySection = () => {
             </div>
           ))}
         </div>
-      </div>
-      <div className="journey-marquee">
-        <div className="rail">
-          {steps.concat(steps).map((step, i) => (
-            <div className="mini-card" key={`mini-${i}`}>
-              <span className="dot" />
-              {step.title}
-            </div>
-          ))}
-        </div>
-      </div>
+      </div>  
     </section>
   );
 };
