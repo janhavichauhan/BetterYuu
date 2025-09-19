@@ -1,8 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../style/components/HeroSection.scss';
 import heroSvg from '../assets/Home-page/hero-section.svg';
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <section className="hero-section">
       <div className="hero-container" data-speed="-0.2" data-lag="0.4">
@@ -19,7 +21,7 @@ const HeroSection = () => {
           <p className="hero-description">
             Daytime accountability meets nighttime reflection powered by AI, privacy-first, and peer-driven.
           </p>
-          <button className="cta-button">GET STARTED</button>
+          <button className="cta-button" onClick={() => navigate('/auth')}>GET STARTED</button>
         </div>
       </div>
     </section>
