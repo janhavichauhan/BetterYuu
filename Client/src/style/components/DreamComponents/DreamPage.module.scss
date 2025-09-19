@@ -1,0 +1,19 @@
+/* MainLayout.module.scss */
+.mainLayout {
+  display: flex;
+  min-height: 100vh;
+  background: transparent;
+  position: relative;
+}
+.content {
+  flex: 1;
+  min-width: 0;
+  z-index: 1;
+  padding: 0 1.5rem 2.5rem 1.5rem;
+}
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}

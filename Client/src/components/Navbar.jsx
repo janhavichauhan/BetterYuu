@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import '../style/components/Navbar.scss';
 import brandSvg from '../assets/Better-Yuu.svg';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -34,7 +36,7 @@ const Navbar = () => {
 
     if (isMenuOpen) {
       document.addEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      document.body.style.overflow = 'hidden'; 
     } else {
       document.body.style.overflow = 'unset';
     }
@@ -72,7 +74,9 @@ const Navbar = () => {
               />
               <div className="search-icon">🔍</div>
             </div>
-            <button className="join-button">JOIN NOW</button>
+              <button onClick={() => navigate("/login")}>
+                  Join Now
+               </button> 
           </div>
           
           <div className="mobile-menu-toggle" onClick={toggleMenu}>
