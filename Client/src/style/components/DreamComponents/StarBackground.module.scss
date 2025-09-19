@@ -1,0 +1,83 @@
+/* Keep this part as it is */
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse at bottom, #0b1027 0%, #090c1d 45%, #050713 100%);
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: -10%;
+    right: -10%;
+    bottom: -20%;
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(167, 139, 250, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.12) 0%, transparent 55%),
+      radial-gradient(circle at 40% 40%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
+    filter: blur(20px);
+    animation: backgroundDrift 40s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes backgroundDrift {
+  from { transform: scale(1) translateY(0); opacity: 1; }
+  to { transform: scale(1.08) translateY(-2%); opacity: 0.9; }
+}
+
+/* --- UPDATED STAR --- */
+.star {
+  position: absolute;
+  width: 3px;  /* CHANGED: Added width */
+  height: 3px; /* CHANGED: Added height */
+  border-radius: 80%;
+  background: radial-gradient(circle, #ffffff 0%, #e5e7eb 40%, rgba(255,255,255,0) 70%);
+  /* CHANGED: Increased blur and spread of the shadow for a bigger glow */
+  box-shadow: 0 0 15px 4px rgba(255,255,255,0.95), 0 0 35px 8px rgba(255,255,255,0.35);
+  /* CHANGED: Increased drop-shadow blur */
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.8));
+  animation: starTwinkle 3s infinite ease-in-out alternate; /* Tweak timing slightly */
+}
+
+@keyframes starTwinkle {
+  0% { opacity: 0.3; transform: scale(0.9); filter: blur(0.5px); }
+  /* CHANGED: Increased the max scale for a more noticeable "twinkle" */
+  50% { opacity: 1; transform: scale(1.3); filter: blur(0); }
+  100% { opacity: 0.7; transform: scale(1.1); filter: blur(1.2px); }
+}
+
+/* --- UPDATED SHOOTING STAR --- */
+.shootingStar {
+  position: absolute;
+  width: 6px;  /* CHANGED: Increased from 4px */
+  height: 6px; /* CHANGED: Increased from 4px */
+  background: #ffffff;
+  border-radius: 50%;
+  /* CHANGED: Increased shadow for a brighter head */
+  box-shadow: 0 0 15px 5px rgba(255,255,255,0.95);
+  transform: translate3d(0,0,0);
+  animation-name: shootAcross;
+  animation-timing-function: cubic-bezier(0.2, 0.6, 0.2, 1);
+  animation-fill-mode: forwards;
+
+  /* --- UPDATED TRAIL --- */
+  &::after {
+    content: '';
+    position: absolute;
+    left: -180px;     /* CHANGED: Increased trail length */
+    top: -3px;        /* CHANGED: Re-centered the tail vertically */
+    width: 180px;     /* CHANGED: Increased trail length */
+    height: 6px;      /* CHANGED: Increased trail thickness */
+    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.9));
+    border-radius: 4px;
+    filter: blur(1px);
+  }
+}
+
+@keyframes shootAcross {
+  from { opacity: 0; transform: translate3d(0,0,0) rotate(20deg); }
+  10% { opacity: 1; }
+  to { opacity: 0; transform: translate3d(var(--tx), var(--ty), 0) rotate(20deg); }
+}

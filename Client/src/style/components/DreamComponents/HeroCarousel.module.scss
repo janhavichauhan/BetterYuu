@@ -1,0 +1,251 @@
+//=====================================================================
+// 1. VARIABLES & MIXINS
+//=====================================================================
+
+// --- Colors ---
+$primary-accent: #a78bfa;
+$primary-accent-dark: #8b5cf6;
+$text-primary: #f8fafc; // Almost white
+$text-secondary: #cbd5e1; // Light gray
+$bg-dark: #0b1027; // Very dark blue
+
+// --- Glassmorphism ---
+$glass-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+$glass-border: 1px solid rgba(255, 255, 255, 0.12);
+$glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+$glass-blur: blur(12px);
+
+// --- Typography & Spacing ---
+$main-border-radius: 16px;
+$button-border-radius: 10px;
+$transition-speed: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+// --- Reusable Glass Card Mixin ---
+@mixin glass-card-style {
+  background: $glass-bg;
+  border: $glass-border;
+  border-radius: $main-border-radius;
+  box-shadow: $glass-shadow;
+  backdrop-filter: $glass-blur;
+  -webkit-backdrop-filter: $glass-blur;
+  padding: 1.5rem;
+  color: $text-primary;
+  position: relative;
+  overflow: hidden;
+}
+
+//=====================================================================
+// 2. CORE LAYOUT
+//=====================================================================
+
+.blackhole {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 0.8;
+}
+
+.hero {
+  max-width: 1200px;
+  margin: 4rem auto 2rem auto;
+  padding: 0 1.5rem;
+  display: grid;
+  gap: 1.5rem;
+  z-index: 1;
+
+  // --- Desktop Layout (2 columns) ---
+  @media (min-width: 1024px) {
+    grid-template-columns: 2fr 1fr; // Main content is wider
+    align-items: start; // Align items to the top of their grid cell
+  }
+}
+
+.leftCol,
+.rail {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+//=====================================================================
+// 3. COMPONENT STYLES
+//=====================================================================
+
+// --- Main Carousel Card ---
+.card {
+  @include glass-card-style;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: heroCardFade 0.7s $transition-speed;
+  height: 30px;
+
+
+  h2 {
+    font-size: clamp(1.8rem, 4vw, 2.2rem); // Responsive font size
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    color: $text-secondary;
+    line-height: 1.6;
+    margin: 0;
+    font-size: 1rem;
+    max-width: 50ch; // Improves readability
+  }
+}
+
+// Simple fade-in animation for the card content
+@keyframes heroCardFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// --- Buttons ---
+.cta, .ctaSecondary {
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.7rem 1.3rem;
+  border-radius: $button-border-radius;
+  transition: all $transition-speed;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+}
+
+.cta {
+  margin-top: 0.5rem;
+  background: linear-gradient(135deg, $primary-accent, $primary-accent-dark);
+  color: $bg-dark;
+  box-shadow: 0 8px 15px rgba($primary-accent, 0.25);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px rgba($primary-accent, 0.3);
+  }
+}
+
+.ctaSecondary {
+  background: transparent;
+  color: $text-primary;
+  border: 1px solid $primary-accent;
+  padding: 0.6rem 1rem;
+  flex-shrink: 0; // Prevents the button from shrinking
+
+  &:hover {
+    background: $primary-accent;
+    color: $bg-dark;
+  }
+}
+
+.btnRow {
+  display: flex;
+  flex-wrap: wrap; // Allows buttons to wrap on small screens
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+// --- AI Assistant CTA ---
+.assistantCta {
+  @include glass-card-style;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem; // Slightly different padding
+
+  h4 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.1rem;
+  }
+
+  p {
+    margin: 0;
+    color: $text-secondary;
+    font-size: 0.9rem;
+  }
+}
+
+// --- Calendar Styling ---
+.calendar {
+  @include glass-card-style;
+  padding: 1rem; // Add some internal padding
+
+  .react-calendar {
+    border: none;
+    width: 100%;
+    font-family: inherit;
+    background: transparent;
+    color: $text-primary;
+
+    // --- Navigation (Month/Year) ---
+    .react-calendar__navigation {
+      margin-bottom: 1rem;
+      button {
+        background: transparent;
+        color: $text-primary;
+        font-weight: 600;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: 8px;
+        transition: background $transition-speed;
+        &:hover, &:focus {
+          background: rgba(255, 255, 255, 0.1);
+        }
+      }
+    }
+
+    // --- Weekday Abbreviations (Mon, Tue, etc.) ---
+    .react-calendar__month-view__weekdays__weekday {
+      color: $primary-accent;
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      abbr {
+        text-decoration: none;
+      }
+    }
+
+    // --- Day Tiles ---
+    .react-calendar__tile {
+      background: transparent;
+      color: $text-secondary;
+      border: none;
+      border-radius: 8px;
+      transition: all $transition-speed;
+      font-weight: 500;
+      padding: 0.75rem 0.25rem; 
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: $text-primary;
+      }
+      &--active {
+        background: linear-gradient(135deg, $primary-accent, $primary-accent-dark);
+        color: $bg-dark;
+        font-weight: 700;
+        box-shadow: 0 2px 6px rgba($primary-accent, 0.25);
+      }
+      &--now { // Today's date
+        background: rgba($primary-accent, 0.15);
+        color: $primary-accent;
+        font-weight: 600;
+      }
+    }
+  }
+}

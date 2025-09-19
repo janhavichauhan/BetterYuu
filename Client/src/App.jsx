@@ -1,10 +1,15 @@
 import './App.css';
 import MainLayout from './components/MainLayout';
+import AppRoutes from './Routes/Routes';
+
 
 function App() {
   return (
-    <MainLayout>
-    </MainLayout>
+   <>
+    <main>
+      <AppRoutes />
+    </main>
+   </>
   );
 }
 

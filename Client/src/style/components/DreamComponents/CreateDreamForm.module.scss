@@ -1,0 +1,108 @@
+/* CreateDreamForm.module.scss */
+.form {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #1a202c;
+  padding: 3rem;
+  border-radius: 12px;
+  max-width: 600px;
+  margin: 0 auto 3rem auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+}
+
+.form h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  color: #1a202c;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+.formDescription {
+  color: #64748b;
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.input, .textarea {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border-radius: 8px;
+  border: 2px solid #e2e8f0;
+  background: #ffffff;
+  color: #1a202c;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  
+  &::placeholder {
+    color: #9ca3af;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+  
+  &:hover {
+    border-color: #cbd5e1;
+  }
+}
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+.button {
+  background: #3b82f6;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  align-self: center;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.025em;
+  min-width: 200px;
+  
+  &:hover { 
+    background: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    background: #9ca3af;
+    box-shadow: none;
+  }
+}
