@@ -1,16 +1,17 @@
+import styles from '../../style/components/DreamComponents/HeroCarousel.module.scss';
 import { useState, useEffect } from 'react';
-import ProfileCard from './ProfileCard';
-import Blackhole from '../../assets/Blackhole.jpg';
-
-// MUI imports
-import { Card, CardContent, CardActions, Typography, Button, Box } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { grey } from '@mui/material/colors';
+import ProfileCard from './ProfileCard';
 
-// Cards data
 const cards = [
   {
     heading: 'Welcome back Nitin-N!!',
@@ -32,15 +33,6 @@ const cards = [
   },
 ];
 
-// Dark theme for the calendar and cards
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-    background: { paper: '#000000' },
-    text: { primary: '#ffffff', secondary: grey[400] },
-  },
-});
-
 export default function HeroCarousel() {
   const [idx, setIdx] = useState(0);
   const [date, setDate] = useState(new Date());
@@ -51,33 +43,21 @@ export default function HeroCarousel() {
   }, []);
 
   const card = cards[idx];
+  // MUI dark theme
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+      background: { paper: '#000' },
+      text: { primary: '#fff' },
+      primary: { main: '#1976d2' },
+    },
+  });
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Box
-        sx={{
-          position: 'relative',
-          minHeight: '100vh',
-          backgroundColor: '#000',
-          backgroundImage: `url(${Blackhole})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          p: 4,
-          color: '#fff',
-        }}
-      >
-        {/* Left Column */}
-        <Box sx={{ flex: 1, pr: 4 }}>
-       <Card sx={{ 
-            backgroundColor: 'rgba(0, 0, 0, 0.6)', 
-            mb: 3,
-            backdropFilter: 'blur(5px)', 
-            borderRadius: 2
-          }}>
-
+      <section className={styles.hero}>
+        <div className={styles.leftCol}>
+          <Card sx={{ backgroundColor: 'rgba(0,0,0,0.7)', mb: 3, borderRadius: 2 }}>
             <CardContent>
               <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
                 {card.heading}
@@ -90,37 +70,24 @@ export default function HeroCarousel() {
             </CardContent>
             <CardActions>
               {card.button ? (
-                <Button
-                  href={card.button.link}
-                  variant="contained"
-                  color="primary"
-                  sx={{ textTransform: 'none' }}
-                >
+                <Button href={card.button.link} variant="contained" color="primary" sx={{ textTransform: 'none' }}>
                   {card.button.text}
                 </Button>
               ) : (
                 card.buttons.map((btn, i) => (
-                  <Button
-                    key={i}
-                    href={btn.link}
-                    variant="contained"
-                    color="primary"
-                    sx={{ textTransform: 'none', mr: 1 }}
-                  >
+                  <Button key={i} href={btn.link} variant="contained" color="primary" sx={{ textTransform: 'none', mr: 1 }}>
                     {btn.text}
                   </Button>
                 ))
               )}
             </CardActions>
           </Card>
-
-          <Box sx={{ mb: 3 }}>
+          <div className={styles.profileBox}>
             <ProfileCard />
-          </Box>
-        </Box>
+          </div>
+        </div>
 
-        {/* Right Column */}
-        <Box sx={{ width: 300 }}>
+        <div className={styles.rail}>
           <Card sx={{ backgroundColor: 'rgba(0,0,0,0.7)', mb: 3, p: 2 }}>
             <Typography variant="h6" gutterBottom>
               Talk to AI Assistant
@@ -132,8 +99,6 @@ export default function HeroCarousel() {
               Start
             </Button>
           </Card>
-
-          {/* MUI Dark Calendar */}
           <Card sx={{ backgroundColor: 'rgba(0,0,0,0.7)', p: 2 }}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
@@ -157,8 +122,8 @@ export default function HeroCarousel() {
               />
             </LocalizationProvider>
           </Card>
-        </Box>
-      </Box>
+        </div>
+      </section>
     </ThemeProvider>
   );
 }
