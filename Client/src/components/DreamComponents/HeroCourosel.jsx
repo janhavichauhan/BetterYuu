@@ -7,7 +7,7 @@ import Blackhole from '../../assets/Blackhole.jpg';
 
 const cards = [
   {
-    heading: 'Welcome back Janhavi!!',
+    heading: 'Welcome back Nitin-N!!',
     sub: ['Ready to explore your dreams? Reflect, record & grow. Every dream is a journey.'],
     button: { text: 'Add your dream', link: '/add-dream' },
   },
