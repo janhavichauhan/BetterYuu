@@ -3,7 +3,7 @@ import React from 'react';
 import {Routes, Route } from 'react-router-dom';
 import LoginPage from '../components/LoginComponents/Login.jsx';
 import MainLayout from '../components/MainLayout.jsx';
-import HomePage from '../components/HomePageComponents/Navbar.jsx';
+import HomePage from '../pages/HomePage.jsx';
 import Dream from '../pages/Dream.jsx';
 function AppRoutes() {
   return (
