@@ -6,9 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { LocalizationProvider, DatePicker,DateCalendar } from '@mui/x-date-pickers';
+import { LocalizationProvider, DateCalendar } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import ProfileCard from './ProfileCard';
 
@@ -43,7 +41,13 @@ export default function HeroCarousel() {
   }, []);
 
   const card = cards[idx];
-  // MUI dark theme
+const handleSwitch = () => {
+  setTimeout(() => {
+    window.location.href = "/home"; 
+  }, 1800); 
+};
+
+
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
@@ -52,6 +56,13 @@ export default function HeroCarousel() {
       primary: { main: '#1976d2' },
     },
   });
+
+  // Function to handle date selection
+  const handleDateChange = (newDate) => {
+    setDate(newDate);
+    const formattedDate = newDate.toISOString().split('T')[0];
+    window.location.href = `/your-dreams?date=${formattedDate}`;
+  };
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -75,13 +86,30 @@ export default function HeroCarousel() {
                 </Button>
               ) : (
                 card.buttons.map((btn, i) => (
-                  <Button key={i} href={btn.link} variant="contained" color="primary" sx={{ textTransform: 'none', mr: 1 }}>
+                  <Button
+                    key={i}
+                    href={btn.link}
+                    variant="contained"
+                    color="primary"
+                    sx={{ textTransform: 'none', mr: 1 }}
+                  >
                     {btn.text}
                   </Button>
                 ))
               )}
+              {/* ✅ New Button added here */}
+             <Button
+              onClick={handleSwitch}
+              variant="outlined"
+              color="secondary"
+              sx={{ textTransform: 'none', ml: 1 }}
+            >
+              Switch to Conscious
+            </Button>
+
             </CardActions>
           </Card>
+
           <div className={styles.profileBox}>
             <ProfileCard />
           </div>
@@ -99,27 +127,28 @@ export default function HeroCarousel() {
               Start
             </Button>
           </Card>
-  <LocalizationProvider dateAdapter={AdapterDateFns}>
-    <div style={{ width: 260, margin: "0 auto" }}>
-      <DateCalendar
-        value={date}
-        onChange={setDate}
-        sx={{
-          bgcolor: 'background.paper',
-          borderRadius: 2,
-          boxShadow: 1,
-          color: '#7953dfff',
-          '& .Mui-selected': {
-            bgcolor: 'var(--primary-purple) !important',
-            color: '#fff !important'
-          },
-          '& .MuiDayCalendar-weekDayLabel, & .MuiDayCalendar-header': {
-            color: '#fff'
-          }
-        }}
-      />
-    </div>
-  </LocalizationProvider>
+
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <div className={styles.calendarContainer}>
+              <DateCalendar
+                value={date}
+                onChange={handleDateChange}
+                sx={{
+                  bgcolor: 'background.paper',
+                  borderRadius: 2,
+                  boxShadow: 1,
+                  color: '#7953dfff',
+                  '& .Mui-selected': {
+                    bgcolor: 'var(--primary-purple) !important',
+                    color: '#fff !important',
+                  },
+                  '& .MuiDayCalendar-weekDayLabel, & .MuiDayCalendar-header': {
+                    color: '#fff',
+                  },
+                }}
+              />
+            </div>
+          </LocalizationProvider>
         </div>
       </section>
     </ThemeProvider>
