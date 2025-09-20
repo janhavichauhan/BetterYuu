@@ -288,8 +288,6 @@ const Sidebar = ({ navItems, onNavClick }) => {
 };
 
 const Header = () => {
-    // For animation, you can use CSS transitions or a library like Framer Motion.
-    // Here, we'll use a simple fade-out effect before redirecting.
     const [isSwitching, setIsSwitching] = useState(false);
 
     const handleSwitch = () => {
