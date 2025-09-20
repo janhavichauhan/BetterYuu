@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
+import { LocalizationProvider, DatePicker,DateCalendar } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import ProfileCard from './ProfileCard';
 
@@ -57,7 +57,7 @@ export default function HeroCarousel() {
     <ThemeProvider theme={darkTheme}>
       <section className={styles.hero}>
         <div className={styles.leftCol}>
-          <Card sx={{ backgroundColor: 'rgba(0,0,0,0.7)', mb: 3, borderRadius: 2 }}>
+          <Card sx={{ backgroundColor: 'rgba(10, 10, 10, 0)', mb: 3, borderRadius: 2 }}>
             <CardContent>
               <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
                 {card.heading}
@@ -88,7 +88,7 @@ export default function HeroCarousel() {
         </div>
 
         <div className={styles.rail}>
-          <Card sx={{ backgroundColor: 'rgba(0,0,0,0.7)', mb: 3, p: 2 }}>
+          <Card sx={{ backgroundColor: 'rgba(0, 0, 0, 0)', mb: 3, p: 2 }}>
             <Typography variant="h6" gutterBottom>
               Talk to AI Assistant
             </Typography>
@@ -99,29 +99,27 @@ export default function HeroCarousel() {
               Start
             </Button>
           </Card>
-          <Card sx={{ backgroundColor: 'rgba(0,0,0,0.7)', p: 2 }}>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DatePicker
-                value={date}
-                onChange={(newValue) => setDate(newValue)}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    fullWidth
-                    sx={{
-                      input: { color: '#fff' },
-                      svg: { color: '#fff' },
-                      '.MuiOutlinedInput-root': {
-                        '& fieldset': { borderColor: '#fff' },
-                        '&:hover fieldset': { borderColor: '#aaa' },
-                        '&.Mui-focused fieldset': { borderColor: '#fff' },
-                      },
-                    }}
-                  />
-                )}
-              />
-            </LocalizationProvider>
-          </Card>
+  <LocalizationProvider dateAdapter={AdapterDateFns}>
+    <div style={{ width: 260, margin: "0 auto" }}>
+      <DateCalendar
+        value={date}
+        onChange={setDate}
+        sx={{
+          bgcolor: 'background.paper',
+          borderRadius: 2,
+          boxShadow: 1,
+          color: '#7953dfff',
+          '& .Mui-selected': {
+            bgcolor: 'var(--primary-purple) !important',
+            color: '#fff !important'
+          },
+          '& .MuiDayCalendar-weekDayLabel, & .MuiDayCalendar-header': {
+            color: '#fff'
+          }
+        }}
+      />
+    </div>
+  </LocalizationProvider>
         </div>
       </section>
     </ThemeProvider>
