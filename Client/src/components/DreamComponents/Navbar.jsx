@@ -7,9 +7,7 @@ export default function Navbar() {
         <div className={styles.notifyDot}>
           <i className="fa-regular fa-bell"></i>
         </div>
-        <button className={styles.modeBtn} title="Toggle theme">
-          <i className="fa-solid fa-moon"></i>
-        </button>
+
         <div className={styles.profileIcon} title="Profile">
           <i className="fa-regular fa-user"></i>
         </div>

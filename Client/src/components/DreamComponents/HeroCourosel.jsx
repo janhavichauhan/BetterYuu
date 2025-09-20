@@ -6,9 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
+import { LocalizationProvider, DateCalendar } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import ProfileCard from './ProfileCard';
 
@@ -43,7 +41,13 @@ export default function HeroCarousel() {
   }, []);
 
   const card = cards[idx];
-  // MUI dark theme
+const handleSwitch = () => {
+  setTimeout(() => {
+    window.location.href = "/home"; 
+  }, 1800); 
+};
+
+
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
@@ -53,11 +57,18 @@ export default function HeroCarousel() {
     },
   });
 
+  // Function to handle date selection
+  const handleDateChange = (newDate) => {
+    setDate(newDate);
+    const formattedDate = newDate.toISOString().split('T')[0];
+    window.location.href = `/your-dreams?date=${formattedDate}`;
+  };
+
   return (
     <ThemeProvider theme={darkTheme}>
       <section className={styles.hero}>
         <div className={styles.leftCol}>
-          <Card sx={{ backgroundColor: 'rgba(0,0,0,0.7)', mb: 3, borderRadius: 2 }}>
+          <Card sx={{ backgroundColor: 'rgba(10, 10, 10, 0)', mb: 3, borderRadius: 2 }}>
             <CardContent>
               <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
                 {card.heading}
@@ -75,20 +86,37 @@ export default function HeroCarousel() {
                 </Button>
               ) : (
                 card.buttons.map((btn, i) => (
-                  <Button key={i} href={btn.link} variant="contained" color="primary" sx={{ textTransform: 'none', mr: 1 }}>
+                  <Button
+                    key={i}
+                    href={btn.link}
+                    variant="contained"
+                    color="primary"
+                    sx={{ textTransform: 'none', mr: 1 }}
+                  >
                     {btn.text}
                   </Button>
                 ))
               )}
+              {/* ✅ New Button added here */}
+             <Button
+              onClick={handleSwitch}
+              variant="outlined"
+              color="secondary"
+              sx={{ textTransform: 'none', ml: 1 }}
+            >
+              Switch to Conscious
+            </Button>
+
             </CardActions>
           </Card>
+
           <div className={styles.profileBox}>
             <ProfileCard />
           </div>
         </div>
 
         <div className={styles.rail}>
-          <Card sx={{ backgroundColor: 'rgba(0,0,0,0.7)', mb: 3, p: 2 }}>
+          <Card sx={{ backgroundColor: 'rgba(0, 0, 0, 0)', mb: 3, p: 2 }}>
             <Typography variant="h6" gutterBottom>
               Talk to AI Assistant
             </Typography>
@@ -99,29 +127,28 @@ export default function HeroCarousel() {
               Start
             </Button>
           </Card>
-          <Card sx={{ backgroundColor: 'rgba(0,0,0,0.7)', p: 2 }}>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DatePicker
+
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <div className={styles.calendarContainer}>
+              <DateCalendar
                 value={date}
-                onChange={(newValue) => setDate(newValue)}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    fullWidth
-                    sx={{
-                      input: { color: '#fff' },
-                      svg: { color: '#fff' },
-                      '.MuiOutlinedInput-root': {
-                        '& fieldset': { borderColor: '#fff' },
-                        '&:hover fieldset': { borderColor: '#aaa' },
-                        '&.Mui-focused fieldset': { borderColor: '#fff' },
-                      },
-                    }}
-                  />
-                )}
+                onChange={handleDateChange}
+                sx={{
+                  bgcolor: 'background.paper',
+                  borderRadius: 2,
+                  boxShadow: 1,
+                  color: '#7953dfff',
+                  '& .Mui-selected': {
+                    bgcolor: 'var(--primary-purple) !important',
+                    color: '#fff !important',
+                  },
+                  '& .MuiDayCalendar-weekDayLabel, & .MuiDayCalendar-header': {
+                    color: '#fff',
+                  },
+                }}
               />
-            </LocalizationProvider>
-          </Card>
+            </div>
+          </LocalizationProvider>
         </div>
       </section>
     </ThemeProvider>
