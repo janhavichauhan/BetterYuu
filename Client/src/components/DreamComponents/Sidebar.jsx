@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import styles from '../../style/components/DreamComponents/Sidebar.module.scss';
+import AIAnalyzerModal from './Ai_dream_analyzer';
 
 export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [expandedSections, setExpandedSections] = useState({
     dreams: true,
     blogs: false,
     other: false
   });
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const toggleSection = (section) => {
     setExpandedSections(prev => ({
@@ -18,7 +22,6 @@ export default function Sidebar() {
 
   return (
     <aside className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ''}`}>
-      {/* Header with Logo */}
       <div className={styles.header}>
         <div className={styles.logo}>
           <div className={styles.logoIcon}>⚡</div>
@@ -45,11 +48,11 @@ export default function Sidebar() {
 
       {/* Navigation */}
       <nav className={styles.nav}>
-        {/* Dashboard */}
-        <a href="/dashboard" className={styles.navItem}>
+        {/* Dashboard as a heading */}
+        <span className={styles.navItem}>
           <span className={styles.navIcon}><i className="fa-solid fa-gauge-high"></i></span>
           {!isCollapsed && <span>Dashboard</span>}
-        </a>
+        </span>
 
         {/* Dreams Section */}
         <div className={styles.navSection}>
@@ -71,7 +74,6 @@ export default function Sidebar() {
             <div className={styles.subNav}>
               <a href="/add-dream" className={styles.subNavItem}><i className="fa-regular fa-pen-to-square"></i>&nbsp;Add dreams</a>
               <a href="/view-dreams" className={styles.subNavItem}><i className="fa-regular fa-eye"></i>&nbsp;View dreams</a>
-              <a href="/dream-analysis" className={styles.subNavItem}><i className="fa-solid fa-chart-line"></i>&nbsp;Dream Analysis</a>
             </div>
           )}
         </div>
@@ -102,7 +104,7 @@ export default function Sidebar() {
         </div>
 
         {/* AI Dream Analyzer */}
-        <a href="/ai-analyzer" className={styles.navItem}>
+        <a href="#" className={styles.navItem} onClick={openModal}>
           <span className={styles.navIcon}><i className="fa-solid fa-robot"></i></span>
           {!isCollapsed && <span>AI dream Analyzer</span>}
         </a>
@@ -158,6 +160,7 @@ export default function Sidebar() {
           </button>
         </div>
       )}
+      <AIAnalyzerModal open={isModalOpen} onClose={closeModal} />
     </aside>
   );
 }

@@ -11,19 +11,15 @@ export default function StarBackground() {
     const width = () => container.clientWidth || window.innerWidth;
     const height = () => container.clientHeight || window.innerHeight;
 
-    // Config
     const STAR_COUNT = 26; 
     const MIN_SPEED = 0.08;
     const MAX_SPEED = 0.45;
-
     const starState = [];
 
     function createStar() {
       const el = document.createElement('div');
       el.className = styles.star;
-
-      // random size and initial pos
-      const depth = Math.random(); // 
+      const depth = Math.random(); 
       const size = depth > 1 ? 3 : depth > 1 ? 2 : 1;
       el.style.width = `${size}px`;
       el.style.height = `${size}px`;
@@ -31,10 +27,8 @@ export default function StarBackground() {
       let x = Math.random() * width();
       let y = Math.random() * height();
 
-      // random drift direction (down-right bias)
       const angle = Math.random() * Math.PI * 2;
       let speed = MIN_SPEED + Math.random() * (MAX_SPEED - MIN_SPEED);
-      // parallax scaling: nearer stars move faster
       speed *= 0.5 + depth * 1.2;
       const vx = Math.cos(angle) * speed;
       const vy = Math.sin(angle) * speed;

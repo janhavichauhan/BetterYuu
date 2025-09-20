@@ -14,9 +14,15 @@ import ProductivityDashboard from '../components/HomePageComponents/Streak.jsx';
 import AiChat from '../components/HomePageComponents/Aichat.jsx';
 import PageWrapper from '../utils/PageWrapper.jsx';
 import Group from '../components/HomePageComponents/GroupChat.jsx';
+import AddDreams from '../components/DreamComponents/Add_dream.jsx';
+import ViewDreams from '../components/DreamComponents/view_dream.jsx';
+import YourBlogs from '../components/DreamComponents/YourBlog.jsx';
 function AppRoutes() {
   return (
         <Routes>
+          <Route path="/your-blogs" element={<div data-barba="container" data-barba-namespace="yourblogs"><YourBlogs /></div>} />
+          <Route path="/add-dream" element={<div data-barba="container" data-barba-namespace="adddream"><AddDreams /></div>} />
+          <Route path="/view-dreams" element={<div data-barba="container" data-barba-namespace="viewdreams"><ViewDreams /></div>} />
           <Route path="/" element={<div data-barba="container" data-barba-namespace="main"><MainLayout /></div>} />
           <Route path="/login" element={<div data-barba="container" data-barba-namespace="login"><LoginPage /></div>} />
           <Route path="/home" element={<div data-barba="container" data-barba-namespace="home"><HomePage /></div>} />
