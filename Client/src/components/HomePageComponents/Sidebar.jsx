@@ -492,19 +492,55 @@ const Sidebar = ({ navItems, onNavClick }) => {
   );
 };
 
-const Header = () => (
-    <header className="header">
-        <div>
-            <h1 className="header__title">Hi, Janhavi Chauhan</h1>
-            <p className="header__subtitle">Let's finish your task today!</p>
-        </div>
-        <div className="header__actions">
-            <button className="header__icon-btn">
-                <Icon name="bell" size={24}/>
-            </button>
-        </div>
-    </header>
-);
+const Header = () => {
+    // For animation, you can use CSS transitions or a library like Framer Motion.
+    // Here, we'll use a simple fade-out effect before redirecting.
+    const [isSwitching, setIsSwitching] = useState(false);
+
+    const handleSwitch = () => {
+        setIsSwitching(true);
+        setTimeout(() => {
+            window.location.href = "/dreampage";
+        }, 1800); // 800ms for smooth transition
+    };
+
+    return (
+        <header className={`header${isSwitching ? " fade-out" : ""}`}>
+            <div>
+                <h1 className="header__title">Hi, Janhavi Chauhan</h1>
+                <p className="header__subtitle">Let's finish your task today!</p>
+            </div>
+            <div className="header__actions">
+                <button className="header__icon-btn">
+                    <Icon name="bell" size={24}/>
+                </button>
+                <button
+                    className="header__switch-btn"
+                    style={{
+                        marginLeft: "1rem",
+                        background: "var(--primary-purple)",
+                        color: "#fff",
+                        border: "none",
+                        borderRadius: "0.75rem",
+                        padding: "0.5rem 1rem",
+                        fontWeight: 500,
+                        cursor: "pointer",
+                        transition: "background 0.2s"
+                    }}
+                    onClick={handleSwitch}
+                >
+                    Switch to Unconscious
+                </button>
+            </div>
+            <style>{`
+                .fade-out {
+                    opacity: 0;
+                    transition: opacity 0.8s;
+                }
+            `}</style>
+        </header>
+    );
+};
 
 const TodayTask = () => (
     <div className="today-task">
