@@ -1,4 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { motion } from 'framer-motion';
+import { Badge } from '@mui/material';
 
 // --- FAKE DYNAMIC DATA ---
 
@@ -171,18 +176,47 @@ const GlobalStyles = () => (
         .calendar-header .month { font-weight: 600; }
         .calendar-nav button { background: none; border: none; cursor: pointer; padding: 0.25rem; }
         .calendar-nav .icon { width: 20px; height: 20px; color: var(--text-light); }
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem; text-align: center; }
-        .calendar-grid .day-name { font-size: 0.8rem; color: var(--text-light); font-weight: 600; padding: 0.5rem 0; }
-        .calendar-grid .day {
-            padding: 0.5rem; font-size: 0.9rem; cursor: pointer; border-radius: 50%;
-            transition: background-color 0.2s; position: relative;
+        
+        /* MUI Calendar Styles */
+        .mui-calendar-container { padding: 0; margin-top: 10px; }
+        .mui-calendar-container .MuiDateCalendar-root {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            border-radius: 12px;
         }
-        .calendar-grid .day.other-month { color: #D1D5DB; }
-        .calendar-grid .day:not(.other-month):hover { background-color: var(--light-blue); }
-        .calendar-grid .day.today { background-color: var(--orange); color: white; }
-        .calendar-grid .day.event::after {
-            content: ''; position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
-            width: 5px; height: 5px; background-color: var(--primary-blue); border-radius: 50%;
+        .mui-calendar-container .MuiPickersCalendarHeader-root {
+            padding-top: 0;
+            margin-top: 0;
+        }
+        .mui-calendar-container .MuiPickersCalendarHeader-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        .mui-calendar-container .MuiPickersDay-root {
+            margin: 2px;
+            font-size: 0.9rem;
+        }
+        .mui-calendar-container .MuiPickersDay-today {
+            border: 1px solid var(--primary-blue);
+        }
+        .mui-calendar-container .MuiPickersDay-root.Mui-selected {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        .mui-calendar-container .MuiPickersDay-root:hover {
+            background-color: var(--light-blue);
+        }
+        .mui-calendar-container .MuiBadge-badge {
+            background-color: var(--primary-blue);
+            width: 6px;
+            height: 6px;
+            min-width: 6px;
+            border-radius: 50%;
+            right: 2px;
+            top: 2px;
         }
         
         /* Profile */
@@ -201,49 +235,67 @@ const GlobalStyles = () => (
 
 // --- Calendar Logic ---
 const useCalendar = (events) => {
-    const [currentDate, setCurrentDate] = useState(new Date(2025, 1, 19)); // Hardcoding to Feb 2025 for consistency with design
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [highlightedDays, setHighlightedDays] = useState([]);
     
-    const changeMonth = (amount) => {
-        setCurrentDate(prev => {
-            const newDate = new Date(prev);
-            newDate.setMonth(newDate.getMonth() + amount);
-            return newDate;
-        });
+    // Convert event days to Date objects for the current month
+    useEffect(() => {
+        const year = selectedDate.getFullYear();
+        const month = selectedDate.getMonth();
+        
+        const daysWithEvents = events.map(day => new Date(year, month, day));
+        setHighlightedDays(daysWithEvents);
+    }, [selectedDate, events]);
+    
+    // Function to check if a date has an event
+    const isDateHighlighted = (date) => {
+        return highlightedDays.some(d => 
+            d.getDate() === date.getDate() && 
+            d.getMonth() === date.getMonth() && 
+            d.getFullYear() === date.getFullYear()
+        );
     };
-
-    const monthData = useMemo(() => {
-        const year = currentDate.getFullYear();
-        const month = currentDate.getMonth();
-        const firstDayOfMonth = new Date(year, month, 1).getDay();
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-        
-        const daysArray = Array(daysInMonth).fill(null).map((_, i) => {
-            const dayNumber = i + 1;
-            const today = new Date();
-            const isToday = today.getFullYear() === year && today.getMonth() === month && today.getDate() === dayNumber;
-            return {
-                num: dayNumber,
-                isToday: isToday,
-                isEvent: events.includes(dayNumber)
-            };
-        });
-        
-        const placeholders = Array(firstDayOfMonth).fill({ num: null });
-        
-        return {
-            monthName: currentDate.toLocaleString('default', { month: 'long' }),
-            year,
-            days: [...placeholders, ...daysArray]
-        };
-    }, [currentDate, events]);
     
-    return { currentDate, changeMonth, monthData };
+    return { selectedDate, setSelectedDate, isDateHighlighted, highlightedDays };
 };
 
 
+// Animation variants for motion components
+const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+};
+
+const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1
+        }
+    }
+};
+
+// Custom day renderer for MUI Calendar
+const ServerDay = (props) => {
+    const { day, outsideCurrentMonth, isDateHighlighted, ...other } = props;
+    
+    const isHighlighted = isDateHighlighted(day);
+    
+    return (
+        <Badge
+            key={day.toString()}
+            overlap="circular"
+            badgeContent={isHighlighted ? '🔵' : undefined}
+        >
+            <div {...other} />
+        </Badge>
+    );
+};
+
 // --- Main Component ---
 export default function GoalDashboard() {
-    const { monthData, changeMonth } = useCalendar(eventDays);
+    const { selectedDate, setSelectedDate, isDateHighlighted } = useCalendar(eventDays);
 
     const averageProgress = useMemo(() => {
         if (dailyGoalsData.length === 0) return 0;
@@ -254,119 +306,264 @@ export default function GoalDashboard() {
     return (
         <>
             <GlobalStyles />
-            <div className="dashboard-container">
+            <motion.div 
+                className="dashboard-container"
+                initial="hidden"
+                animate="visible"
+                variants={staggerContainer}
+            >
                 <main className="main-content">
-                    <header className="main-header">
+                    <motion.header className="main-header" variants={fadeInUp}>
                         <h1>Dashboard</h1>
                         <div className="search-bar">
                             <Icon name="search" className="icon" />
                             <input type="text" placeholder="Search Class, task and more" />
                         </div>
-                    </header>
+                    </motion.header>
                     
-                    <div className="content-grid">
-                        <section className="card productivity-card">
+                    <motion.div className="content-grid" variants={staggerContainer}>
+                        <motion.section className="card productivity-card" variants={fadeInUp}>
                             <h2 className="card-title">Productivity</h2>
                             <div className="chart-container">
-                                {productivityData.map(d => (
-                                    <div key={d.day} className="bar-wrapper">
+                                {productivityData.map((d, index) => (
+                                    <motion.div 
+                                        key={d.day} 
+                                        className="bar-wrapper"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: index * 0.1, duration: 0.5 }}
+                                    >
                                         <div className="bar" style={{ height: `${d.progress * 1.5}px` }}>
-                                           <div className="bar-inner" style={{height: '100%'}}></div>
+                                           <motion.div 
+                                               className="bar-inner" 
+                                               initial={{ height: 0 }}
+                                               animate={{ height: '100%' }}
+                                               transition={{ duration: 1, delay: 0.3 + (index * 0.1) }}
+                                           ></motion.div>
                                         </div>
                                         <span className="bar-day">{d.day}</span>
-                                    </div>
+                                    </motion.div>
                                 ))}
                             </div>
-                        </section>
+                        </motion.section>
 
-                        <section className="card progress-card">
+                        <motion.section className="card progress-card" variants={fadeInUp}>
                             <h2 className="card-title">Progress</h2>
                             <div className="progress-circle-container">
-                                <div className="progress-circle">
+                                <motion.div 
+                                    className="progress-circle"
+                                    initial={{ scale: 0.8, opacity: 0 }}
+                                    animate={{ scale: 1, opacity: 1 }}
+                                    transition={{ duration: 0.5, delay: 0.2 }}
+                                >
                                      <svg width="150" height="150" viewBox="0 0 150 150">
                                         <circle cx="75" cy="75" r="65" fill="none" stroke={COLORS.light} strokeWidth="15" />
-                                        <circle cx="75" cy="75" r="65" fill="none" stroke={COLORS.main} strokeWidth="15" strokeDasharray="408" strokeDashoffset={408 - (408 * averageProgress) / 100} strokeLinecap="round" />
+                                        <motion.circle 
+                                            cx="75" 
+                                            cy="75" 
+                                            r="65" 
+                                            fill="none" 
+                                            stroke={COLORS.main} 
+                                            strokeWidth="15" 
+                                            strokeDasharray="408" 
+                                            initial={{ strokeDashoffset: 408 }}
+                                            animate={{ strokeDashoffset: 408 - (408 * averageProgress) / 100 }}
+                                            transition={{ duration: 1.5, delay: 0.5 }}
+                                            strokeLinecap="round" 
+                                        />
                                     </svg>
-                                    <div className="percent">{averageProgress}%</div>
-                                </div>
-                                <div className="progress-legend">
+                                    <motion.div 
+                                        className="percent"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ duration: 0.5, delay: 1.5 }}
+                                    >
+                                        {averageProgress}%
+                                    </motion.div>
+                                </motion.div>
+                                <motion.div 
+                                    className="progress-legend"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, delay: 1.7 }}
+                                >
                                     <div className="legend-item"><div className="legend-dot" style={{backgroundColor: COLORS.main}}></div> Online Class</div>
                                     <div className="legend-item"><div className="legend-dot" style={{backgroundColor: COLORS.light}}></div> Private Class</div>
-                                </div>
+                                </motion.div>
                             </div>
-                        </section>
+                        </motion.section>
 
-                        <section className="card my-class-card">
+                        <motion.section className="card my-class-card" variants={fadeInUp}>
                             <h2 className="card-title">My Class</h2>
                             <div className="goal-list">
-                                {dailyGoalsData.map(goal => (
-                                    <div key={goal.id} className="goal-item">
+                                {dailyGoalsData.map((goal, index) => (
+                                    <motion.div 
+                                        key={goal.id} 
+                                        className="goal-item"
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 0.5, delay: 0.2 + (index * 0.1) }}
+                                        whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                                    >
                                         <div className="goal-icon"><Icon name={goal.icon} className="icon"/></div>
                                         <div className="goal-details">
                                             <p className="goal-title">{goal.title}</p>
-                                            <div className="goal-progress-bar"><div className="goal-progress-inner" style={{width: `${goal.progress}%`}}></div></div>
+                                            <div className="goal-progress-bar">
+                                                <motion.div 
+                                                    className="goal-progress-inner" 
+                                                    initial={{ width: 0 }}
+                                                    animate={{ width: `${goal.progress}%` }}
+                                                    transition={{ duration: 1, delay: 0.5 + (index * 0.1) }}
+                                                ></motion.div>
+                                            </div>
                                         </div>
                                         <span className="goal-percent">{goal.progress}%</span>
-                                    </div>
+                                    </motion.div>
                                 ))}
                             </div>
-                        </section>
+                        </motion.section>
 
-                        <section className="card notifications-card">
+                        <motion.section className="card notifications-card" variants={fadeInUp}>
                             <h2 className="card-title">Notifications</h2>
                              <div className="notification-list">
-                                {notificationsData.map(n => (
-                                    <div key={n.id} className="notification-item">
-                                        <div className="notification-initial" style={{backgroundColor: n.color}}>{n.senderInitial}</div>
+                                {notificationsData.map((n, index) => (
+                                    <motion.div 
+                                        key={n.id} 
+                                        className="notification-item"
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.4, delay: 0.3 + (index * 0.1) }}
+                                        whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                                    >
+                                        <motion.div 
+                                            className="notification-initial" 
+                                            style={{backgroundColor: n.color}}
+                                            initial={{ scale: 0 }}
+                                            animate={{ scale: 1 }}
+                                            transition={{ type: "spring", stiffness: 500, delay: 0.4 + (index * 0.1) }}
+                                        >{n.senderInitial}</motion.div>
                                         <div className="notification-content">
                                             <p className="message">{n.message}</p>
                                             <p className="time">{n.time}</p>
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 ))}
                             </div>
-                        </section>
+                        </motion.section>
 
-                        <section className="card schedule-card">
-                             <div className="calendar-header">
-                                <span className="month">{monthData.monthName} {monthData.year}</span>
-                                <div className="calendar-nav">
-                                    <button onClick={() => changeMonth(-1)}><Icon name="chevronLeft" className="icon"/></button>
-                                    <button onClick={() => changeMonth(1)}><Icon name="chevronRight" className="icon"/></button>
-                                </div>
-                            </div>
-                            <div className="calendar-grid">
-                                {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(d => <div key={d} className="day-name">{d}</div>)}
-                                {monthData.days.map((day, i) => (
-                                    <div key={i} className={`day ${day.num === null ? 'other-month' : ''} ${day.isToday ? 'today' : ''} ${day.isEvent ? 'event' : ''}`}>
-                                        {day.num}
-                                    </div>
-                                ))}
-                            </div>
-                        </section>
+                        <motion.section className="card schedule-card" variants={fadeInUp}>
+                            <h2 className="card-title">Schedule</h2>
+                            <motion.div 
+                                className="mui-calendar-container"
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.5, delay: 0.3 }}
+                            >
+                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                    <DateCalendar 
+                                        value={selectedDate}
+                                        onChange={(newDate) => setSelectedDate(newDate)}
+                                        slots={{
+                                            day: ServerDay,
+                                        }}
+                                        slotProps={{
+                                            day: {
+                                                isDateHighlighted,
+                                            },
+                                        }}
+                                        sx={{
+                                            width: '100%',
+                                            '& .MuiPickersDay-root': {
+                                                borderRadius: '50%',
+                                                '&.Mui-selected': {
+                                                    backgroundColor: COLORS.main,
+                                                    color: '#fff',
+                                                    '&:hover': {
+                                                        backgroundColor: COLORS.main,
+                                                    },
+                                                },
+                                                '&:hover': {
+                                                    backgroundColor: COLORS.light,
+                                                },
+                                            },
+                                        }}
+                                    />
+                                </LocalizationProvider>
+                            </motion.div>
+                        </motion.section>
                         
-                        <section className="card profile-card">
-                             <div className="profile-content">
-                                <img src={profileData.avatarUrl} alt={profileData.name} className="profile-avatar"/>
-                                <h3 className="profile-name">{profileData.name}</h3>
-                                <p className="profile-role">{profileData.role}</p>
-                                <div className="profile-stats">
-                                    <div className="stat-item">
+                        <motion.section className="card profile-card" variants={fadeInUp}>
+                             <motion.div 
+                                className="profile-content"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.5, delay: 0.2 }}
+                            >
+                                <motion.img 
+                                    src={profileData.avatarUrl} 
+                                    alt={profileData.name} 
+                                    className="profile-avatar"
+                                    initial={{ scale: 0.8 }}
+                                    animate={{ scale: 1 }}
+                                    transition={{ duration: 0.5, delay: 0.4 }}
+                                    whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
+                                />
+                                <motion.h3 
+                                    className="profile-name"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, delay: 0.5 }}
+                                >{profileData.name}</motion.h3>
+                                <motion.p 
+                                    className="profile-role"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, delay: 0.6 }}
+                                >{profileData.role}</motion.p>
+                                <motion.div 
+                                    className="profile-stats"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, delay: 0.7 }}
+                                >
+                                    <motion.div 
+                                        className="stat-item"
+                                        initial={{ scale: 0.9, opacity: 0 }}
+                                        animate={{ scale: 1, opacity: 1 }}
+                                        transition={{ duration: 0.3, delay: 0.8 }}
+                                        whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                                    >
                                         <Icon name="achievement" className="icon"/>
-                                        <div className="stat-value">{profileData.achievements}</div>
+                                        <motion.div 
+                                            className="stat-value"
+                                            initial={{ scale: 0 }}
+                                            animate={{ scale: 1 }}
+                                            transition={{ type: "spring", stiffness: 500, delay: 0.9 }}
+                                        >{profileData.achievements}</motion.div>
                                         <div className="stat-label">Achievement</div>
-                                    </div>
-                                     <div className="stat-item">
+                                    </motion.div>
+                                    <motion.div 
+                                        className="stat-item"
+                                        initial={{ scale: 0.9, opacity: 0 }}
+                                        animate={{ scale: 1, opacity: 1 }}
+                                        transition={{ duration: 0.3, delay: 0.9 }}
+                                        whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                                    >
                                         <Icon name="friend" className="icon"/>
-                                        <div className="stat-value">{profileData.friends}</div>
+                                        <motion.div 
+                                            className="stat-value"
+                                            initial={{ scale: 0 }}
+                                            animate={{ scale: 1 }}
+                                            transition={{ type: "spring", stiffness: 500, delay: 1.0 }}
+                                        >{profileData.friends}</motion.div>
                                         <div className="stat-label">Courses</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
+                                    </motion.div>
+                                </motion.div>
+                            </motion.div>
+                        </motion.section>
+                    </motion.div>
                 </main>
-            </div>
+            </motion.div>
         </>
     );
 }

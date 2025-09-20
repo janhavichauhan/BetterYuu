@@ -22,7 +22,7 @@ export default function DreamsSection() {
       <h2 className={styles.heading}>Your Dreams</h2>
       <div className={styles.grid}>
         {dreams.map((dream, i) => (
-          <div className={styles.card} key={i}>
+          <div className={styles.card} key={i} style={{'--index': i}}>
             <div className={styles.date}>{dream.date}</div>
             <h3>{dream.title}</h3>
             <p>{dream.description}</p>

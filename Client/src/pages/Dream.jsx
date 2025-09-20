@@ -5,22 +5,28 @@ import DreamsSection from '../components/DreamComponents/DreamSection';
 import BlogsSection from '../components/DreamComponents/BlogSection';
 import StarBackground from '../components/DreamComponents/StarBackground';
 import StatsSection from '../components/DreamComponents/StatsSection';
+import PageWrapper from '../utils/PageWrapper';
+import { useLocation } from 'react-router-dom';
 
 import styles from '../style/components/DreamComponents/DreamPage.module.scss';
 
 export default function Dream({ children }) {
+  const location = useLocation();
+  
   return (
-    <div className={styles.mainLayout}>
-      <div className={styles.background}><StarBackground /></div>
-      <Sidebar />
-      <div className={styles.content}>
-        <Navbar />
-        <HeroCarousel />
-        <StatsSection />
-        <DreamsSection />
-        <BlogsSection />
-        {children}
+    <PageWrapper locationKey={location.pathname} namespace="dream">
+      <div className={styles.mainLayout}>
+        <div className={styles.background}><StarBackground /></div>
+        <Sidebar />
+        <div className={styles.content}>
+          <Navbar />
+          <HeroCarousel />
+          <StatsSection />
+          <DreamsSection />
+          <BlogsSection />
+          {children}
+        </div>
       </div>
-    </div>
+    </PageWrapper>
   );
 }
