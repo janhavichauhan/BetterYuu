@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import '../style/pages/AuthPage.scss';
+import PageWrapper from '../utils/PageWrapper';
+import { useLocation } from 'react-router-dom';
 
 const AuthPage = () => {
+  const location = useLocation();
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
@@ -19,7 +22,8 @@ const AuthPage = () => {
   };
 
   return (
-    <section className="auth-page">
+    <PageWrapper locationKey={location.pathname} namespace="login">
+      <section className="auth-page">
       <div className="auth-card">
         <h1 className="auth-title">Welcome to Better Youu!</h1>
         <p className="auth-subtitle">Sign in to continue our journey</p>
@@ -72,6 +76,7 @@ const AuthPage = () => {
         </div>
       )}
     </section>
+    </PageWrapper>
   );
 };
 

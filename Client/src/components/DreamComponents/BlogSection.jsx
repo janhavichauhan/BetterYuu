@@ -32,7 +32,8 @@ export default function BlogsSection() {
       <p className={styles.subheading}>Hand‑picked stories, guides and insights from the dream journal.</p>
       <div className={styles.list}>
         {blogs.map((b, i) => (
-          <article className={styles.item} key={i}>
+          <article className={styles.item} key={i} style={{'--index': i}} 
+                   data-aos="fade-up" data-aos-delay={i * 100}>
             <a className={styles.thumbnail} href="/blogs">
               <img src={b.image} alt={b.title} loading="lazy" />
             </a>

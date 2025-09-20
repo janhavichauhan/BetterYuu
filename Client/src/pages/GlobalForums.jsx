@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Navbar from "../components/Navbar";
 import "../style/pages/GlobalForums.scss";
+import PageWrapper from "../utils/PageWrapper";
+import { useLocation } from "react-router-dom";
 
 const forumCategories = [
   { id: "productivity", name: "Productivity" },
@@ -28,6 +30,7 @@ const sampleThreads = {
 };
 
 function GlobalForums() {
+  const location = useLocation();
   const [selectedCategory, setSelectedCategory] = useState(forumCategories[0].id);
   const [sort, setSort] = useState("hot"); // hot | new | top
   const [query, setQuery] = useState("");
