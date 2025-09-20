@@ -13,6 +13,7 @@ import CoursesDashboard from '../components/HomePageComponents/Courses.jsx';
 import ProductivityDashboard from '../components/HomePageComponents/Streak.jsx';
 import AiChat from '../components/HomePageComponents/Aichat.jsx';
 import PageWrapper from '../utils/PageWrapper.jsx';
+import Group from '../components/HomePageComponents/GroupChat.jsx';
 function AppRoutes() {
   return (
         <Routes>
@@ -27,6 +28,7 @@ function AppRoutes() {
           <Route path="/courses" element={<div data-barba="container" data-barba-namespace="courses"><CoursesDashboard /></div>} />
           <Route path="/streak" element={<div data-barba="container" data-barba-namespace="streak"><ProductivityDashboard /></div>} />
           <Route path="/ai-tutor" element={<div data-barba="container" data-barba-namespace="aitutor"><AiChat /></div>} />
+          <Route path='/groups' element={<div data-barba="container" data-barba-namespace="groups"><Group /></div>}></Route>
         </Routes>
   );
 }
