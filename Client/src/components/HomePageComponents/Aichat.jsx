@@ -283,7 +283,7 @@ export default function AiTutorChat() {
         const selectedLanguageName = languages.find(l => l.code === language)?.name || 'English';
         const systemPrompt = `You are an expert AI Tutor named Script AI. Your goal is to help users learn and understand complex topics. Respond in well-formatted markdown. Your response MUST be in ${selectedLanguageName}.`;
         
-        const apiKey = ""; 
+        const apiKey = process.env.apiKey; 
         const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
 
         const requestHistory = allChats.find(c => c.id === currentChatId)?.messages.map(item => ({
