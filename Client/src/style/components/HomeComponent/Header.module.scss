@@ -1,0 +1,33 @@
+ /* --- HEADER --- */
+        .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 2rem;
+        }
+        .header__title {
+          font-size: 1.75rem;
+          font-weight: 600;
+        }
+        .header__subtitle {
+          color: var(--text-light);
+        }
+        .header__actions {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+        .header__icon-btn {
+          background: none;
+          border: 1px solid var(--border-color);
+          border-radius: 0.75rem;
+          width: 44px;
+          height: 44px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          color: var(--text-light);
+        }
+
+      
