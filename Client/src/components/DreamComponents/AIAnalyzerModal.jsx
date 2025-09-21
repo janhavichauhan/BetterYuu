@@ -10,37 +10,8 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-const styles = `
-  .image-container {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .generated-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-`;
-const modalStyle = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 500,
-  maxWidth: '90%',
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-  borderRadius: 2,
-  outline: 'none',
-  maxHeight: '80vh',
-  overflowY: 'auto',
-};
+// Import the SCSS module
+import styles from '../../style/components/DreamComponents/AiAnalyzerModal.module.scss';
 
 const retry = async (func, retries = 3, delay = 1000) => {
   try {
@@ -105,7 +76,7 @@ const callGeminiApi = async (prompt) => {
 /**
  * AI Assistant Modal Component
  */
-function AIAnalyzerModal({ open, onClose }) {
+export default function AIAnalyzerModal({ open, onClose }) {
   const [dreamInput, setDreamInput] = useState('');
   const [aiOutput, setAiOutput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -127,7 +98,6 @@ function AIAnalyzerModal({ open, onClose }) {
   };
 
   const handleCloseModal = () => {
-    // Reset state when closing the modal
     setDreamInput('');
     setAiOutput('');
     setIsLoading(false);
@@ -136,7 +106,7 @@ function AIAnalyzerModal({ open, onClose }) {
 
   return (
     <Modal open={open} onClose={handleCloseModal} aria-labelledby="ai-analyzer-title">
-      <Box sx={modalStyle}>
+      <Box className={styles.modal}>
         <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
           <Typography id="ai-analyzer-title" variant="h5" component="h2" color="primary">
             🔮 AI Dream Analyzer
@@ -175,7 +145,7 @@ function AIAnalyzerModal({ open, onClose }) {
 
         {/* Output Area */}
         {aiOutput && (
-          <Box mt={3} p={2} sx={{ border: '1px solid #e0e0e0', borderRadius: 1, backgroundColor: '#f9f9f9' }}>
+          <Box mt={3} p={2} sx={{ borderRadius: 1, backgroundColor: '#f9f9f9' }}>
             <Typography variant="h6" color="text.secondary">AI Analysis:</Typography>
             <Typography variant="body1" sx={{ whiteSpace: 'pre-wrap' }}>
               {aiOutput}
@@ -186,5 +156,3 @@ function AIAnalyzerModal({ open, onClose }) {
     </Modal>
   );
 }
-
-export default AIAnalyzerModal;

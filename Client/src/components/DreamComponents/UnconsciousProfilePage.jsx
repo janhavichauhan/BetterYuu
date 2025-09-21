@@ -1,26 +1,26 @@
 import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
-import styles from '../../style/components/HomeComponent/ProfilePage.module.scss';
+import styles from '../../style/components/DreamComponents/UnconsciousProfilePage.module.scss';
 import { format } from 'date-fns';
 
-// Mock data for the user profile
-const mockProfileData = {
-  name: 'Janhavi Chauhan',
-  role: 'UI/UX Designer',
+// Mock data tailored for the "unconscious" profile
+const mockUnconsciousProfileData = {
+  name: 'MR.  BEST FRIEND', // A more thematic name
+  role: 'Dream Analyst', // A role related to dreams
   avatar: 'https://i.pravatar.cc/150?img=47',
-  coverImage: 'https://images.unsplash.com/photo-1510936279934-2e212470725a?q=80&w=2940&auto=format&fit=crop',
+  coverImage: 'https://images.unsplash.com/photo-1549419637-bf7f62e84606?q=80&w=2940&auto=format&fit=crop', // A more dreamy cover image
   stats: [
-    { label: 'Goals Completed', value: 12 },
-    { label: 'Courses Finished', value: 4 },
-    { label: 'Current Streak', value: 45 },
-    { label: 'Blogs Written', value: 8 },
+    { label: 'Dreams Recorded', value: 37 },
+    { label: 'AI Analyses', value: 25 },
+    { label: 'Dream Cycles', value: 150 },
+    { label: 'Luminosity Score', value: '8.4' }, // A unique stat for the dream theme
   ],
   recentActivity: [
-    { type: 'assignment', title: 'User Persona Project', date: new Date('2025-09-19'), status: 'Completed' },
-    { type: 'blog', title: 'The Power of Dream Interpretation', date: new Date('2025-09-18'), status: 'Published' },
-    { type: 'course', title: 'Mindfulness for Beginners', date: new Date('2025-09-17'), status: 'Finished' },
-    { type: 'goal', title: 'Learn React Hooks', date: new Date('2025-09-16'), status: 'Achieved' },
+    { type: 'dream', title: 'Flying Through Stars', date: new Date('2025-09-20'), status: 'Analyzed' },
+    { type: 'AI', title: 'Symbolism of Water', date: new Date('2025-09-19'), status: 'Received' },
+    { type: 'dream', title: 'Meeting a Shadow Figure', date: new Date('2025-09-18'), status: 'Recorded' },
+    { type: 'blog', title: 'The World of Lucid Dreaming', date: new Date('2025-09-17'), status: 'Read' },
   ],
 };
 
@@ -30,7 +30,7 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2 // Delay between children animations
+      staggerChildren: 0.2
     }
   }
 };
@@ -40,8 +40,8 @@ const itemVariants = {
   visible: { opacity: 1, y: 0 }
 };
 
-export default function ProfilePage() {
-  const { name, role, avatar, coverImage, stats, recentActivity } = mockProfileData;
+export default function UnconsciousProfilePage() {
+  const { name, role, avatar, coverImage, stats, recentActivity } = mockUnconsciousProfileData;
   const avatarRef = useRef(null);
 
   useEffect(() => {
@@ -120,7 +120,7 @@ export default function ProfilePage() {
           className={styles.activitySection}
           variants={itemVariants}
         >
-          <h2 className={styles.sectionTitle}>Recent Activity</h2>
+          <h2 className={styles.sectionTitle}>Recent Dream Activity</h2>
           <ul className={styles.activityList}>
             {recentActivity.map((activity, index) => (
               <motion.li 
@@ -130,10 +130,9 @@ export default function ProfilePage() {
                 animate={{ opacity: 1, x: 0, transition: { duration: 0.4, delay: 1.5 + index * 0.1 } }}
               >
                 <span className={styles.activityIcon}>
-                  {activity.type === 'assignment' && '✅'}
-                  {activity.type === 'blog' && '📝'}
-                  {activity.type === 'course' && '🎓'}
-                  {activity.type === 'goal' && '🎯'}
+                  {activity.type === 'dream' && '🌙'}
+                  {activity.type === 'AI' && '🤖'}
+                  {activity.type === 'blog' && '📖'}
                 </span>
                 <div className={styles.activityDetails}>
                   <p className={styles.activityTitle}>{activity.title}</p>
@@ -143,7 +142,6 @@ export default function ProfilePage() {
             ))}
           </ul>
         </motion.div>
-
       </motion.div>
     </div>
   );

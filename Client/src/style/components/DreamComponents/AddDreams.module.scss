@@ -5,7 +5,7 @@
   position: fixed;
   inset: 0;
   z-index: 0;
-  background: radial-gradient(ellipse at bottom, #0b1027 0%, #090c1d 45%, #050713 100%);
+  // background: radial-gradient(ellipse at bottom, #0b1027 0%, #090c1d 45%, #050713 100%);
   overflow: hidden;
 
   &::before {
@@ -15,12 +15,12 @@
     left: -10%;
     right: -10%;
     bottom: -20%;
-    background:
-      radial-gradient(circle at 20% 80%, rgba(167, 139, 250, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.12) 0%, transparent 55%),
-      radial-gradient(circle at 40% 40%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
-    filter: blur(20px);
-    animation: backgroundDrift 40s ease-in-out infinite alternate;
+    // background:
+    //   radial-gradient(circle at 20% 80%, rgba(167, 139, 250, 0.15) 0%, transparent 50%),
+    //   radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.12) 0%, transparent 55%),
+    //   radial-gradient(circle at 40% 40%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
+    // filter: blur(20px);
+    // animation: backgroundDrift 40s ease-in-out infinite alternate;
   }
 }
 
@@ -35,10 +35,10 @@
   max-width: 700px;
   margin: 5rem auto;
   padding: 3rem;
-  background-color: rgba(255, 255, 255, 0.05); // A subtle, semi-transparent background for the content card
-  border: 1px solid rgba(255, 255, 255, 0.1); // A very faint border
+  // background-color: rgba(255, 255, 255, 0.05); // A subtle, semi-transparent background for the content card
+  // border: 1px solid rgba(255, 255, 255, 0.1); // A very faint border
   border-radius: 16px; // More rounded corners
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); // A more prominent shadow
+  // box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); // A more prominent shadow
   backdrop-filter: blur(5px); // Adds a cool blur effect to the background
   animation: fadeIn 1s ease-out;
 }
@@ -54,7 +54,7 @@
   color: #F0F2F5; // Lighter text color
   text-align: center;
   margin-bottom: 0.5rem;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3); // Subtle text shadow
+  // text-shadow: 0 2px 4px rgba(0,0,0,0.3); // Subtle text shadow
 }
 
 .subtitle {
@@ -73,7 +73,7 @@
 .textarea {
   width: 100%;
   padding: 1.2rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(2-55, 255, 255, 0.2);
   border-radius: 12px;
   font-size: 1rem;
   line-height: 1.5;
