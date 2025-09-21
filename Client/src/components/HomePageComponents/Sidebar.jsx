@@ -1,29 +1,8 @@
 import React, { useState } from 'react';
-
+import RightSidebar from './RightSidebar';
 // Helper component for Icons. In a real app, you would use a library like lucide-react.
-const Icon = ({ name, size = 24, className = "", strokeWidth = 1.5 }) => {
-    const icons = {
-        logo: (
-            <svg width={size} height={size} className={className} viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M22 44C34.1503 44 44 34.1503 44 22C44 9.84974 34.1503 0 22 0C9.84974 0 0 9.84974 0 22C0 34.1503 9.84974 44 22 44Z" fill="#F8F8FA"/>
-                <path d="M29.4088 18.2625C29.4088 20.375 28.5338 22.3125 27.0688 23.7775C25.6038 25.2425 23.6663 26.1175 21.5538 26.1175C19.4413 26.1175 17.5038 25.2425 16.0388 23.7775C14.5738 22.3125 13.6988 20.375 13.6988 18.2625C13.6988 14.0375 17.1838 10.5525 21.5538 10.5525C25.9238 10.5525 29.4088 14.0375 29.4088 18.2625Z" fill="#775FFC"/>
-                <path d="M29.4088 29.8375C29.4088 34.0625 25.9238 37.5475 21.5538 37.5475C17.1838 37.5475 13.6988 34.0625 13.6988 29.8375C13.6988 28.5275 14.0488 27.32 14.6613 26.2575C15.9613 27.7225 18.0738 29.0225 21.5538 29.0225C25.0338 29.0225 27.1463 27.7225 28.4463 26.2575C29.0588 27.32 29.4088 28.5275 29.4088 29.8375Z" fill="#775FFC"/>
-            </svg>
-        ),
-        dashboard: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className={className} width={size} height={size} strokeWidth={strokeWidth}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" /></svg>,
-        track: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className={className} width={size} height={size} strokeWidth={strokeWidth}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
-        projects: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className={className} width={size} height={size} strokeWidth={strokeWidth}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" /></svg>,
-        reports: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className={className} width={size} height={size} strokeWidth={strokeWidth}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h12M3.75 3h16.5M3.75 3v1.5M16.5 3v1.5m0 9.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h.008M9.75 16.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h.008m4.5-9.75h.008" /></svg>,
-        support: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className={className} width={size} height={size} strokeWidth={strokeWidth}><path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.898 20.562L16.5 21.75l-.398-1.188a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.188-.398a2.25 2.25 0 001.423-1.423L16.5 15.75l.398 1.188a2.25 2.25 0 001.423 1.423L19.5 18.75l-1.188.398a2.25 2.25 0 00-1.423 1.423z" /></svg>,
-        settings: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className={className} width={size} height={size} strokeWidth={strokeWidth}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m18 0h-1.5m-15 0a7.5 7.5 0 1115 0m-15 0H3m18 0h-1.5m-15 0a7.5 7.5 0 1115 0m-15 0H3m18 0h-1.5m-15 0a7.5 7.5 0 1115 0m-15 0H3m18 0h-1.5" /></svg>,
-        bell: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className={className} width={size} height={size}><path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" /></svg>,
-        plus: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className={className} width={size} height={size}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>,
-        ellipsis: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className={className} width={size} height={size}><path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" /></svg>,
-        check: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className={className} width={size} height={size}><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.052-.143z" clipRule="evenodd" /></svg>,
-    };
-    return icons[name] || null;
-};
-
+import Icon from './icons';
+import Header from './Header';
 const Sidebar = ({ navItems, onNavClick }) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const[expandedSections, setExpandedSections] = useState({
@@ -130,8 +109,6 @@ const Sidebar = ({ navItems, onNavClick }) => {
               <ul style={{ paddingLeft: "2rem" }}>
                 <li><a href="/aiassesment"><i className="fa-solid fa-brain"></i> AI Assessment</a></li>
                 <li><a href="/set-goals"><i className="fa-regular fa-pen-to-square"></i> Set Goals</a></li>
-                <li><a href="/progress-graph"><i className="fa-solid fa-chart-line"></i> Progress Graph</a></li>
-                <li><a href="/results"><i className="fa-solid fa-trophy"></i> Results</a></li>
               </ul>
             )}
           </li>
@@ -287,53 +264,6 @@ const Sidebar = ({ navItems, onNavClick }) => {
   );
 };
 
-const Header = () => {
-    const [isSwitching, setIsSwitching] = useState(false);
-
-    const handleSwitch = () => {
-        setIsSwitching(true);
-        setTimeout(() => {
-            window.location.href = "/dreampage";
-        }, 1800); // 800ms for smooth transition
-    };
-
-    return (
-        <header className={`header${isSwitching ? " fade-out" : ""}`}>
-            <div>
-                <h1 className="header__title">Hi, Janhavi Chauhan</h1>
-                <p className="header__subtitle">Let's finish your task today!</p>
-            </div>
-            <div className="header__actions">
-                <button className="header__icon-btn">
-                    <Icon name="bell" size={24}/>
-                </button>
-                <button
-                    className="header__switch-btn"
-                    style={{
-                        marginLeft: "1rem",
-                        background: "var(--primary-purple)",
-                        color: "#fff",
-                        border: "none",
-                        borderRadius: "0.75rem",
-                        padding: "0.5rem 1rem",
-                        fontWeight: 500,
-                        cursor: "pointer",
-                        transition: "background 0.2s"
-                    }}
-                    onClick={handleSwitch}
-                >
-                    Switch to Unconscious
-                </button>
-            </div>
-            <style>{`
-                .fade-out {
-                    opacity: 0;
-                    transition: opacity 0.8s;
-                }
-            `}</style>
-        </header>
-    );
-};
 
 const TodayTask = () => (
     <div className="today-task">
@@ -484,68 +414,6 @@ const WeeklyProgress = () => (
     </div>
 );
 
-
-const RightSidebar = ({ scheduleItems, onAddTask, activeDay, onDayClick }) => {
-    const batchmates = [
-        { name: 'Rinsen Jey', role: 'UI/UX Designer', avatar: 'https://i.pravatar.cc/40?img=7' },
-        { name: 'Kim jeeyong', role: 'UI/UX Designer', avatar: 'https://i.pravatar.cc/40?img=8' },
-        { name: 'Kim Jeeyong', role: 'UI/UX Designer', avatar: 'https://i.pravatar.cc/40?img=9' },
-    ];
-
-    return (
-        <aside className="right-sidebar">
-            <div className="profile-card">
-                <img src="https://i.pravatar.cc/48?img=11" alt="Kim Namjoon" className="profile-card__avatar" />
-                <h3 className="profile-card__name">Kim Namjoon</h3>
-                <p className="profile-card__role">UI/UX Designer</p>
-            </div>
-            <div className="schedule-card">
-                <div className="schedule-card__header">
-                    <h4>March</h4>
-                    <button className="schedule-card__add-btn" onClick={onAddTask}><Icon name="plus" size={16}/> Add Task</button>
-                </div>
-                <div className="schedule-card__calendar">
-                    {['mon', 'tue', 'wed', 'thu', 'fri', 'sat'].map((day, i) => (
-                        <div key={day} className={`day ${activeDay === i ? 'active' : ''}`} onClick={() => onDayClick(i)}>
-                            <span>{day.charAt(0).toUpperCase() + day.slice(1,3)}</span>
-                            <span>{6 + i}</span>
-                        </div>
-                    ))}
-                </div>
-                <div className="schedule-card__timeline">
-                    {['09:00', '10:00', '11:00', '12:00', '01:00'].map(time => <div key={time} className="time-marker"><span>{time}</span></div>)}
-                    {scheduleItems.map((item, index) => (
-                        <div key={index} className={`schedule-item ${item.color}`} style={{top: item.top, height: item.height}}>
-                           <div className="schedule-item__details">
-                                <p>{item.title}</p>
-                                <small>{item.time}</small>
-                           </div>
-                           <button><Icon name="ellipsis" size={20}/></button>
-                        </div>
-                    ))}
-                </div>
-            </div>
-            <div className="batchmates-card">
-                <h3 className="card-title">Batchmates</h3>
-                <ul>
-                    {batchmates.map((mate, index) => (
-                        <li key={index}>
-                            <img src={mate.avatar} alt={mate.name} />
-                            <div>
-                                <p>{mate.name}</p>
-                                <small>{mate.role}</small>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-                <button className="batchmates-card__see-all">See All</button>
-            </div>
-        </aside>
-    );
-};
-
-
-
 const App = () => {
   const [navItems, setNavItems] = useState([
       { icon: 'dashboard', label: 'Dashboard', active: true },
@@ -687,6 +555,38 @@ const App = () => {
             background: var(--border-color);
             border-radius: 3px;
         }
+            /* --- TODAY TASK --- */
+        .today-task {
+          background-color: var(--bg-white);
+          border-radius: 1.5rem;
+          padding: 2rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1.5rem;
+        }
+        .today-task__title {
+          font-size: 1.5rem;
+          font-weight: 600;
+          margin-bottom: 0.25rem;
+        }
+        .today-task__subtitle {
+          color: var(--text-light);
+          margin-bottom: 1.5rem;
+        }
+        .today-task__btn {
+          background-color: var(--light-purple);
+          color: var(--primary-purple);
+          border: none;
+          padding: 0.75rem 1.5rem;
+          border-radius: 0.75rem;
+          font-weight: 600;
+          cursor: pointer;
+        }
+        .today-task__image img {
+          max-width: 200px;
+        }
+
 
         /* --- UTILITY CLASSES --- */
         .text-white { 
@@ -832,69 +732,7 @@ const App = () => {
             background-color: #5b21b6;
         }
 
-        /* --- HEADER --- */
-        .header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 2rem;
-        }
-        .header__title {
-          font-size: 1.75rem;
-          font-weight: 600;
-        }
-        .header__subtitle {
-          color: var(--text-light);
-        }
-        .header__actions {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-        }
-        .header__icon-btn {
-          background: none;
-          border: 1px solid var(--border-color);
-          border-radius: 0.75rem;
-          width: 44px;
-          height: 44px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          color: var(--text-light);
-        }
-
-        /* --- TODAY TASK --- */
-        .today-task {
-          background-color: var(--bg-white);
-          border-radius: 1.5rem;
-          padding: 2rem;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 1.5rem;
-        }
-        .today-task__title {
-          font-size: 1.5rem;
-          font-weight: 600;
-          margin-bottom: 0.25rem;
-        }
-        .today-task__subtitle {
-          color: var(--text-light);
-          margin-bottom: 1.5rem;
-        }
-        .today-task__btn {
-          background-color: var(--light-purple);
-          color: var(--primary-purple);
-          border: none;
-          padding: 0.75rem 1.5rem;
-          border-radius: 0.75rem;
-          font-weight: 600;
-          cursor: pointer;
-        }
-        .today-task__image img {
-          max-width: 200px;
-        }
+       
 
         /* --- TASK CARD --- */
         .tasks-progress-grid {
@@ -1152,169 +990,6 @@ const App = () => {
             height: 100%;
             border-radius: 2px;
         }
-
-        /* --- RIGHT SIDEBAR --- */
-        .right-sidebar {
-            background-color: var(--light-purple);
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            overflow-y: auto;
-        }
-        .right-sidebar::-webkit-scrollbar { display: none; }
-
-        .profile-card {
-            background-color: var(--bg-white);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        .profile-card__avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            margin: 0 auto 1rem;
-        }
-        .profile-card__name {
-            font-weight: 600;
-        }
-        .profile-card__role {
-            font-size: 0.875rem;
-            color: var(--text-light);
-        }
-
-        .schedule-card {
-            background-color: var(--bg-white);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        .schedule-card__header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        .schedule-card__header h4 {
-            font-weight: 600;
-        }
-        .schedule-card__add-btn {
-            background: none;
-            border: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 500;
-            color: var(--text-dark);
-            cursor: pointer;
-        }
-        .schedule-card__calendar {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 1.5rem;
-        }
-        .day {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 0.75rem;
-            color: var(--text-light);
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-        .day span:last-child {
-            font-weight: 600;
-            font-size: 1rem;
-            color: var(--text-dark);
-            margin-top: 0.25rem;
-        }
-        .day.active {
-            background-color: var(--primary-purple);
-            color: white;
-        }
-        .day.active span {
-            color: white !important;
-        }
-        .schedule-card__timeline {
-            position: relative;
-            padding-left: 3rem;
-            height: 240px;
-        }
-        .time-marker {
-            height: 60px;
-            border-bottom: 1px dashed var(--border-color);
-            position: relative;
-        }
-        .time-marker:last-of-type {
-            border-bottom: none;
-        }
-        .time-marker span {
-            position: absolute;
-            left: -3rem;
-            top: -0.5em;
-            font-size: 0.75rem;
-            color: var(--text-light);
-        }
-        .schedule-item {
-            position: absolute;
-            left: 3rem;
-            right: 0;
-            background-color: var(--bg-main);
-            border-radius: 0.5rem;
-            padding: 0.5rem 0.75rem;
-            border-left: 4px solid;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-        .schedule-item.border-orange { border-color: var(--orange); }
-        .schedule-item.border-purple { border-color: var(--primary-purple); }
-        .schedule-item.border-blue { border-color: var(--blue); }
-        
-        .schedule-item p { font-size: 0.875rem; font-weight: 600; }
-        .schedule-item small { font-size: 0.75rem; color: var(--text-light); }
-        .schedule-item button { background: none; border: none; cursor: pointer; color: var(--text-light); }
-
-        .batchmates-card {
-            background-color: var(--bg-white);
-            border-radius: 1rem;
-            padding: 1.5rem;
-        }
-        .batchmates-card ul {
-            list-style: none;
-            margin-top: 1rem;
-        }
-        .batchmates-card li {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        .batchmates-card li:last-child {
-            margin-bottom: 0;
-        }
-        .batchmates-card li img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-        .batchmates-card li p { font-weight: 600; font-size: 0.875rem; }
-        .batchmates-card li small { font-size: 0.75rem; color: var(--text-light); }
-
-        .batchmates-card__see-all {
-            width: 100%;
-            text-align: center;
-            background: none;
-            border: none;
-            color: var(--primary-purple);
-            font-weight: 600;
-            cursor: pointer;
-            padding-top: 1rem;
-            margin-top: 0.5rem;
-            border-top: 1px solid var(--border-color);
         }
       `}</style>
       <div className="dashboard-layout">
