@@ -90,6 +90,164 @@ const GlobalStyles = () => (
                 grid-template-columns: 2fr 1fr;
             }
         }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                margin: 1rem;
+                gap: 1.5rem;
+            }
+            .dashboard-header h1 {
+                font-size: 1.5rem;
+            }
+            .card {
+                padding: 1rem;
+            }
+            .card-title {
+                font-size: 1.1rem;
+                margin-bottom: 1rem;
+            }
+            .chart-container {
+                height: 150px;
+            }
+            .bar {
+                width: 20px;
+            }
+            .bar-day {
+                font-size: 0.8rem;
+            }
+            .progress-circle {
+                width: 150px;
+                height: 150px;
+            }
+            .progress-circle-percent {
+                font-size: 2rem;
+            }
+            .streak-count {
+                font-size: 2rem;
+            }
+            .streak-label {
+                font-size: 0.9rem;
+            }
+            .calendar-header .month-year {
+                font-size: 0.9rem;
+            }
+            .calendar-grid {
+                gap: 0.5rem;
+            }
+            .calendar-grid .day {
+                padding: 0.4rem;
+                font-size: 0.8rem;
+            }
+            .schedule-item {
+                gap: 0.75rem;
+            }
+            .schedule-time {
+                width: 40px;
+                font-size: 0.8rem;
+            }
+            .schedule-details {
+                padding-left: 0.75rem;
+            }
+            .schedule-details h4 {
+                font-size: 0.9rem;
+            }
+            .schedule-details p {
+                font-size: 0.8rem;
+            }
+            .streak-grid {
+                gap: 3px;
+            }
+            .streak-day-square {
+                width: 12px;
+                height: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .dashboard-container {
+                margin: 0.5rem;
+                gap: 1rem;
+            }
+            .dashboard-header h1 {
+                font-size: 1.25rem;
+            }
+            .card {
+                padding: 0.75rem;
+            }
+            .card-title {
+                font-size: 1rem;
+                margin-bottom: 0.75rem;
+            }
+            .chart-container {
+                height: 120px;
+            }
+            .bar {
+                width: 16px;
+            }
+            .bar-day {
+                font-size: 0.7rem;
+            }
+            .progress-circle {
+                width: 120px;
+                height: 120px;
+            }
+            .progress-circle-percent {
+                font-size: 1.5rem;
+            }
+            .streak-count {
+                font-size: 1.75rem;
+            }
+            .streak-label {
+                font-size: 0.8rem;
+            }
+            .calendar-header .month-year {
+                font-size: 0.8rem;
+            }
+            .calendar-nav button {
+                padding: 0.2rem;
+            }
+            .calendar-grid {
+                gap: 0.3rem;
+            }
+            .calendar-grid .day {
+                padding: 0.3rem;
+                font-size: 0.7rem;
+            }
+            .schedule-item {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+            .schedule-time {
+                width: auto;
+                font-size: 0.75rem;
+            }
+            .schedule-details {
+                border-left: none;
+                border-top: 2px solid;
+                padding-left: 0;
+                padding-top: 0.5rem;
+            }
+            .schedule-details h4 {
+                font-size: 0.8rem;
+            }
+            .schedule-details p {
+                font-size: 0.7rem;
+            }
+            .streak-grid {
+                gap: 2px;
+            }
+            .streak-day-square {
+                width: 10px;
+                height: 10px;
+            }
+            .streak-day-square .tooltip {
+                min-width: 120px;
+                font-size: 0.7rem;
+                padding: 3px 6px;
+            }
+        }
         .card {
             background-color: var(--card-bg);
             padding: 1.5rem;

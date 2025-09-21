@@ -118,6 +118,113 @@ const GlobalStyles = () => (
                 grid-template-columns: 2fr 1fr;
             }
         }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .courses-dashboard {
+                margin: 1rem auto;
+                padding: 1rem;
+                border-radius: 16px;
+            }
+            .header h1 {
+                font-size: 1.25rem;
+            }
+            .courses-header h2 {
+                font-size: 1.5rem;
+            }
+            .course-tabs {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            .course-tabs button {
+                font-size: 0.9rem;
+                padding-bottom: 0.4rem;
+            }
+            .course-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            .course-card-bg {
+                width: 80px;
+                height: 80px;
+                margin: 0 auto;
+            }
+            .course-meta {
+                margin-left: 0;
+                text-align: center;
+            }
+            .sidebar {
+                padding-left: 0;
+                border-left: none;
+                border-top: 1px solid var(--border-color);
+                padding-top: 2rem;
+            }
+            .calendar-grid {
+                gap: 0.3rem;
+            }
+            .calendar-grid .day {
+                padding: 0.3rem;
+                font-size: 0.8rem;
+            }
+            .schedule-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+            .schedule-details {
+                border-left: none;
+                border-top: 3px solid;
+                padding-left: 0;
+                padding-top: 0.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .courses-dashboard {
+                margin: 0.5rem auto;
+                padding: 0.75rem;
+                border-radius: 12px;
+            }
+            .header h1 {
+                font-size: 1.1rem;
+            }
+            .courses-header h2 {
+                font-size: 1.25rem;
+            }
+            .course-tabs {
+                gap: 0.5rem;
+            }
+            .course-tabs button {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.5rem;
+            }
+            .course-card {
+                padding: 1rem;
+            }
+            .course-card-bg {
+                width: 60px;
+                height: 60px;
+            }
+            .course-info h3 {
+                font-size: 1rem;
+            }
+            .course-info p {
+                font-size: 0.8rem;
+            }
+            .widget {
+                margin-bottom: 1.5rem;
+            }
+            .widget-title {
+                font-size: 1rem;
+            }
+            .hours-chart {
+                height: 80px;
+            }
+            .hour-bar {
+                width: 8px;
+            }
+        }
 
         /* Header */
         .header {

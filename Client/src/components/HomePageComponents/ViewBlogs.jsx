@@ -90,6 +90,122 @@ const GlobalStyles = () => (
             margin: 2rem auto;
             padding: 0 1rem;
         }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .blog-container {
+                margin: 1rem auto;
+                padding: 0 0.75rem;
+            }
+            .main-header {
+                margin-bottom: 1.5rem;
+            }
+            .main-header .logo {
+                font-size: 1.5rem;
+            }
+            .main-header .tagline {
+                font-size: 0.9rem;
+            }
+            .search-bar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .search-input {
+                width: 100%;
+            }
+            .filter-buttons {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            .filter-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .blog-card {
+                padding: 1rem;
+            }
+            .blog-card h3 {
+                font-size: 1.1rem;
+            }
+            .blog-card p {
+                font-size: 0.9rem;
+            }
+            .blog-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start;
+            }
+            .blog-meta span {
+                font-size: 0.8rem;
+            }
+            .blog-actions {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .action-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .blog-container {
+                margin: 0.5rem auto;
+                padding: 0 0.5rem;
+            }
+            .main-header {
+                margin-bottom: 1rem;
+            }
+            .main-header .logo {
+                font-size: 1.25rem;
+            }
+            .main-header .tagline {
+                font-size: 0.8rem;
+            }
+            .search-bar {
+                gap: 0.75rem;
+            }
+            .search-input {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            .filter-buttons {
+                gap: 0.4rem;
+            }
+            .filter-btn {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.75rem;
+            }
+            .blog-grid {
+                gap: 0.75rem;
+            }
+            .blog-card {
+                padding: 0.75rem;
+            }
+            .blog-card h3 {
+                font-size: 1rem;
+            }
+            .blog-card p {
+                font-size: 0.8rem;
+            }
+            .blog-meta {
+                gap: 0.4rem;
+            }
+            .blog-meta span {
+                font-size: 0.75rem;
+            }
+            .blog-actions {
+                gap: 0.4rem;
+            }
+            .action-btn {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.75rem;
+            }
+        }
         .main-header {
             text-align: center;
             margin-bottom: 2rem;
