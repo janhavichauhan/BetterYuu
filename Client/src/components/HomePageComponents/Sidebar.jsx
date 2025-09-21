@@ -3,7 +3,8 @@ import RightSidebar from './RightSidebar';
 // Helper component for Icons. In a real app, you would use a library like lucide-react.
 import Icon from './icons';
 import Header from './Header';
-const Sidebar = ({ navItems, onNavClick }) => {
+import styles from '../../style/components/HomeComponent/Sidebar.module.scss';
+const Sidebar = ({ navItems, onNavClick, onSectionClick }) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const[expandedSections, setExpandedSections] = useState({
         goals: true, 
@@ -23,20 +24,15 @@ const Sidebar = ({ navItems, onNavClick }) => {
     ];
 
     return (
-         <aside className="sidebar" style={{ width: isCollapsed ? "80px" : "250px" }}>
+         <aside className={styles.sidebar} style={{ width: isCollapsed ? "80px" : "250px" }}>
       {/* Header with Logo */}
-      <div className="sidebar__logo">
+      <div className={styles.sidebar__logo}>
         <i className="fa-solid fa-bolt fa-2x"></i>
-        {!isCollapsed && <span className="sidebar__logo-text">Better Youu</span>}
+        {!isCollapsed && <span className={styles.sidebar__logoText}>Better Youu</span>}
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
           title={isCollapsed ? "Expand menu" : "Collapse menu"}
-          style={{
-            marginLeft: "auto",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-          }}
+          className={styles.sidebar__toggleBtn}
         >
           {isCollapsed ? (
             <i className="fa-solid fa-chevron-right"></i>
@@ -48,54 +44,43 @@ const Sidebar = ({ navItems, onNavClick }) => {
 
       {/* Search Bar */}
       {!isCollapsed && (
-        <div style={{ marginBottom: "1.5rem" }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              background: "var(--light-purple)",
-              borderRadius: "0.75rem",
-              padding: "0.5rem 0.75rem",
-            }}
-          >
-            <i className="fa-solid fa-magnifying-glass" style={{ marginRight: "0.5rem" }}></i>
+        <div className={styles.sidebar__searchContainer}>
+          <div className={styles.sidebar__searchBox}>
+            <i className="fa-solid fa-magnifying-glass"></i>
             <input
               type="text"
               placeholder="Search"
-              style={{
-                border: "none",
-                outline: "none",
-                background: "transparent",
-                width: "100%",
-              }}
+              className={styles.sidebar__searchInput}
             />
           </div>
         </div>
       )}
 
       {/* Navigation */}
-      <nav className="sidebar__nav">
+      <nav className={styles.sidebar__nav}>
         <ul>
           {/* Dashboard */}
           <li>
-            <a href="/dashboard">
+            <button 
+              className={styles.sidebar__navItem}
+              onClick={() => onSectionClick('dashboard')}
+            >
               <i className="fa-solid fa-gauge-high"></i>
               {!isCollapsed && <span>Dashboard</span>}
-            </a>
+            </button>
           </li>
 
           {/* Goals Section */}
           <li>
             <button
-              className="sidebar__nav-item"
+              className={styles.sidebar__navItem}
               onClick={() => toggleSection("goals")}
-              style={{ display: "flex", alignItems: "center", width: "100%", background: "none", border: "none", padding: "0.875rem 1rem", cursor: "pointer", color: "var(--text-light)", fontWeight:"500" }}
             >
               <i className="fa-solid fa-bullseye"></i>
               {!isCollapsed && (
                 <>
-                  <span className="sidebar__nav-item-text" style={{ marginLeft: "1rem", color: "var(--text-light)", fontWeight:"500", fontSize:"1.05rem" }}>Goals</span>
-                  <span style={{ marginLeft: "auto" }}>
+                  <span className={styles.sidebar__navItemText}>Goals</span>
+                  <span className={styles.sidebar__navItemCaret}>
                     {expandedSections.goals ? (
                       <i className="fa-solid fa-caret-up"></i>
                     ) : (
@@ -106,41 +91,46 @@ const Sidebar = ({ navItems, onNavClick }) => {
               )}
             </button>
             {!isCollapsed && expandedSections.goals && (
-              <ul style={{ paddingLeft: "2rem" }}>
-                <li><a href="/aiassesment"><i className="fa-solid fa-brain"></i> AI Assessment</a></li>
-                <li><a href="/set-goals"><i className="fa-regular fa-pen-to-square"></i> Set Goals</a></li>
+              <ul className={styles.sidebar__subNav}>
+                <li><button className={styles.sidebar__subNavItem} onClick={() => onSectionClick('ai-assessment')}><i className="fa-solid fa-brain"></i> AI Assessment</button></li>
+                <li><button className={styles.sidebar__subNavItem} onClick={() => onSectionClick('set-goals')}><i className="fa-regular fa-pen-to-square"></i> Set Goals</button></li>
               </ul>
             )}
           </li>
 
           {/* Courses */}
           <li>
-            <a href="/courses">
+            <button 
+              className={styles.sidebar__navItem}
+              onClick={() => onSectionClick('courses')}
+            >
               <i className="fa-solid fa-book"></i>
               {!isCollapsed && <span>Courses</span>}
-            </a>
+            </button>
           </li>
 
           {/* Groups */}
           <li>
-            <a href="/groups">
+            <button 
+              className={styles.sidebar__navItem}
+              onClick={() => onSectionClick('groups')}
+            >
               <i className="fa-solid fa-users"></i>
               {!isCollapsed && <span>Groups</span>}
-            </a>
+            </button>
           </li>
 
           {/* Daily Schedule */}
           <li>
             <button
-              className="sidebar__nav-item"
+              className={styles.sidebar__navItem}
               onClick={() => toggleSection("dailySchedule")}
-              style={{ display: "flex", alignItems: "center", width: "100%", background: "none", border: "none", padding: "0.875rem 1rem", cursor: "pointer", color: "var(--text-light)", fontWeight:"500" }}
             >
               <i className="fa-regular fa-calendar-days"></i>
               {!isCollapsed && (
                 <>
-                  <span className="sidebar__nav-item-text" style={{ marginLeft: "1rem", color: "var(--text-light)", fontWeight:"500", fontSize:"1.05rem" }}>Daily Schedule</span>
-                  <span style={{ marginLeft: "auto" }}>
+                  <span className={styles.sidebar__navItemText}>Daily Schedule</span>
+                  <span className={styles.sidebar__navItemCaret}>
                     {expandedSections.dailySchedule ? (
                       <i className="fa-solid fa-caret-up"></i>
                     ) : (
@@ -151,9 +141,9 @@ const Sidebar = ({ navItems, onNavClick }) => {
               )}
             </button>
             {!isCollapsed && expandedSections.dailySchedule && (
-              <ul style={{ paddingLeft: "2rem" }}>
-                <li><a href="/streak"><i className="fa-solid fa-fire"></i> Streak</a></li>
-                <li><a href="/daily-progress"><i className="fa-solid fa-chart-simple"></i> Daily Progress</a></li>
+              <ul className={styles.sidebar__subNav}>
+                <li><button className={styles.sidebar__subNavItem} onClick={() => onSectionClick('streak')}><i className="fa-solid fa-fire"></i> Streak</button></li>
+                <li><button className={styles.sidebar__subNavItem} onClick={() => onSectionClick('daily-progress')}><i className="fa-solid fa-chart-simple"></i> Daily Progress</button></li>
               </ul>
             )}
           </li>
@@ -161,15 +151,14 @@ const Sidebar = ({ navItems, onNavClick }) => {
           {/* Blogs */}
           <li>
             <button
-              className="sidebar__nav-item"
+              className={styles.sidebar__navItem}
               onClick={() => toggleSection("blogs")}
-              style={{ display: "flex", alignItems: "center", width: "100%", background: "none", border: "none", padding: "0.875rem 1rem", cursor: "pointer", color: "var(--text-light)" , fontWeight:"500"}}
             >
               <i className="fa-regular fa-newspaper"></i>
               {!isCollapsed && (
                 <>
-                  <span className="sidebar__nav-item-text"  style={{ marginLeft: "1rem", color: "var(--text-light)", fontWeight:"500", fontSize:"1.05rem" }}>Blogs</span>
-                  <span style={{ marginLeft: "auto" }}>
+                  <span className={styles.sidebar__navItemText}>Blogs</span>
+                  <span className={styles.sidebar__navItemCaret}>
                     {expandedSections.blogs ? (
                       <i className="fa-solid fa-caret-up"></i>
                     ) : (
@@ -180,60 +169,61 @@ const Sidebar = ({ navItems, onNavClick }) => {
               )}
             </button>
             {!isCollapsed && expandedSections.blogs && (
-              <ul style={{ paddingLeft: "2rem" }}>
-                <li><a href="/add-blog"><i className="fa-regular fa-pen-to-square"></i> Add Blogs</a></li>
-                <li><a href="/your-blogs"><i className="fa-regular fa-user"></i> Your Blogs</a></li>
-                <li><a href="/view-blogs"><i className="fa-regular fa-eye"></i> View Blogs</a></li>
+              <ul className={styles.sidebar__subNav}>
+                <li><button className={styles.sidebar__subNavItem} onClick={() => onSectionClick('add-blog')}><i className="fa-regular fa-pen-to-square"></i> Add Blogs</button></li>
+                <li><button className={styles.sidebar__subNavItem} onClick={() => onSectionClick('your-blogs')}><i className="fa-regular fa-user"></i> Your Blogs</button></li>
+                <li><button className={styles.sidebar__subNavItem} onClick={() => onSectionClick('view-blogs')}><i className="fa-regular fa-eye"></i> View Blogs</button></li>
               </ul>
             )}
           </li>
 
           {/* AI Tutor */}
           <li>
-            <a href="/ai-tutor">
+            <button 
+              className={styles.sidebar__navItem}
+              onClick={() => onSectionClick('ai-tutor')}
+            >
               <i className="fa-solid fa-robot"></i>
               {!isCollapsed && <span>AI Tutor</span>}
-            </a>
+            </button>
           </li>
 
           {/* Profile Page */}
           <li>
-            <a href="/profile">
+            <button 
+              className={styles.sidebar__navItem}
+              onClick={() => onSectionClick('profile')}
+            >
               <i className="fa-regular fa-user"></i>
               {!isCollapsed && <span>Profile Page</span>}
-            </a>
+            </button>
           </li>
 
           {/* Other Section */}
           <li>
             <button
-              className="sidebar__nav-item"
+              className={styles.sidebar__navItem}
               onClick={() => toggleSection("other")}
-              style={{ display: "flex", alignItems: "center", width: "100%", background: "none", border: "none", padding: "0.875rem 1rem", cursor: "pointer", color: "var(--text-light)", fontWeight:"500" }}
             >
               <i className="fa-regular fa-square-check"></i>
               {!isCollapsed && (
                 <>
-                 
-
-                  <span className="sidebar__nav-item-text" style={{ marginLeft: "1rem", color: "var(--text-light)", fontWeight:"500", fontSize:"1.05rem" }}>Other</span>
-                  <span style={{ marginLeft: "auto" }}>
+                  <span className={styles.sidebar__navItemText}>Other</span>
+                  <span className={styles.sidebar__navItemCaret}>
                     {expandedSections.other ? (
                       <i className="fa-solid fa-caret-up"></i>
                     ) : (
                       <i className="fa-solid fa-caret-down"></i>
                     )}
                   </span>
-                    
-                  
                 </>
               )}
             </button>
             {!isCollapsed && expandedSections.other && (
-              <ul style={{ paddingLeft: "2rem" }}>
-                <li><a href="/documentation"><i className="fa-regular fa-file-lines"></i> Documentation</a></li>
-                <li><a href="/refer-friend"><i className="fa-regular fa-paper-plane"></i> Refer a Friend</a></li>
-                <li><a href="/support"><i className="fa-regular fa-circle-question"></i> Support</a></li>
+              <ul className={styles.sidebar__subNav}>
+                <li><button className={styles.sidebar__subNavItem} onClick={() => onSectionClick('documentation')}><i className="fa-regular fa-file-lines"></i> Documentation</button></li>
+                <li><button className={styles.sidebar__subNavItem} onClick={() => onSectionClick('refer-friend')}><i className="fa-regular fa-paper-plane"></i> Refer a Friend</button></li>
+                <li><button className={styles.sidebar__subNavItem} onClick={() => onSectionClick('support')}><i className="fa-regular fa-circle-question"></i> Support</button></li>
               </ul>
             )}
           </li>
@@ -241,20 +231,23 @@ const Sidebar = ({ navItems, onNavClick }) => {
       </nav>
 
       {/* Bottom Navigation */}
-      <div className="sidebar__bottom">
+      <div className={styles.sidebar__bottom}>
         <ul>
           <li>
-            <a href="/settings">
+            <button 
+              className={styles.sidebar__navItem}
+              onClick={() => onSectionClick('settings')}
+            >
               <i className="fa-solid fa-gear"></i>
               {!isCollapsed && <span>Settings</span>}
-            </a>
+            </button>
           </li>
         </ul>
       </div>
 
-      <div className="premium-card-container">
-        <div className="premium-card">
-          <div className="premium-card__illustration">👩‍🎓</div>
+      <div className={styles.premiumCardContainer}>
+        <div className={styles.premiumCard}>
+          <div className={styles.premiumCard__illustration}>👩‍🎓</div>
             <h3>Premium subscription</h3>
             <p>Buy premium and get access to new courses</p>
             <button>More detailed</button>
@@ -266,52 +259,52 @@ const Sidebar = ({ navItems, onNavClick }) => {
 
 
 const TodayTask = () => (
-    <div className="today-task">
-        <div className="today-task__content">
-            <h2 className="today-task__title">Today Task</h2>
-            <p className="today-task__subtitle">Check your daily tasks and schedules</p>
-            <button className="today-task__btn">Today's schedule</button>
+    <div className={styles.todayTask}>
+        <div className={styles.todayTask__content}>
+            <h2 className={styles.todayTask__title}>Today Task</h2>
+            <p className={styles.todayTask__subtitle}>Check your daily tasks and schedules</p>
+            <button className={styles.todayTask__btn}>Today's schedule</button>
         </div>
-        <div className="today-task__image">
+        <div className={styles.todayTask__image}>
             <img src="https://img.freepik.com/free-vector/colorful-illustration-female-programmer-working_23-2148277397.jpg?semt=ais_incoming&w=740&q=80" alt="Task management illustration" />
         </div>
     </div>
 );
 
 const TaskCard = ({ task }) => (
-    <div className="task-card">
-        <div className="task-card__header">
+    <div className={styles.taskCard}>
+        <div className={styles.taskCard__header}>
             <div>
-                <p className="task-card__date">{task.date}</p>
-                <h3 className="task-card__title">{task.title}</h3>
-                <p className="task-card__category">{task.category}</p>
+                <p className={styles.taskCard__date}>{task.date}</p>
+                <h3 className={styles.taskCard__title}>{task.title}</h3>
+                <p className={styles.taskCard__category}>{task.category}</p>
             </div>
-            <button className="task-card__menu-btn">
+            <button className={styles.taskCard__menuBtn}>
                 <Icon name="ellipsis" size={20}/>
             </button>
         </div>
-        <div className="task-card__progress">
+        <div className={styles.taskCard__progress}>
             <p>Progress</p>
             <p>{task.progress}%</p>
         </div>
-        <div className="progress-bar">
-            <div className={`progress-bar__inner ${task.color}`} style={{ width: `${task.progress}%` }}></div>
+        <div className={styles.progressBar}>
+            <div className={`${styles.progressBar__inner} ${styles[task.color]}`} style={{ width: `${task.progress}%` }}></div>
         </div>
-        <div className="task-card__footer">
-            <div className="task-card__avatars">
+        <div className={styles.taskCard__footer}>
+            <div className={styles.taskCard__avatars}>
                 {task.avatars.map((avatar, index) => (
                     <img key={index} src={avatar} alt={`User ${index + 1}`} />
                 ))}
-                 <button className="task-card__add-btn">+</button>
+                 <button className={styles.taskCard__addBtn}>+</button>
             </div>
-            <span className={`task-card__days-left ${task.daysLeftColor}`}>{task.daysLeft} days left</span>
+            <span className={`${styles.taskCard__daysLeft} ${styles[task.daysLeftColor]}`}>{task.daysLeft} days left</span>
         </div>
     </div>
 );
 
 const TasksProgress = ({ tasks }) => {
     return (
-        <div className="tasks-progress-grid">
+        <div className={styles.tasksProgressGrid}>
             {tasks.map((task, index) => <TaskCard key={index} task={task} />)}
         </div>
     );
@@ -330,10 +323,10 @@ const TasksProgressGraph = () => {
     const maxVal = 5;
 
     return (
-        <div className="graph-card">
-            <h3 className="card-title">Tasks Progress</h3>
-            <div className="graph">
-                <div className="graph__y-axis">
+        <div className={styles.graphCard}>
+            <h3 className={styles.cardTitle}>Tasks Progress</h3>
+            <div className={styles.graph}>
+                <div className={styles.graph__yAxis}>
                     <span>05</span>
                     <span>04</span>
                     <span>03</span>
@@ -341,11 +334,11 @@ const TasksProgressGraph = () => {
                     <span>01</span>
                     <span>0</span>
                 </div>
-                <div className="graph__bars">
+                <div className={styles.graph__bars}>
                     {data.map((item, index) => (
-                        <div key={index} className="graph__bar-container">
-                            <div className="graph__bar" style={{ height: `${(item.value / maxVal) * 100}%` }}></div>
-                            <span className="graph__x-label">{item.day}</span>
+                        <div key={index} className={styles.graph__barContainer}>
+                            <div className={styles.graph__bar} style={{ height: `${(item.value / maxVal) * 100}%` }}></div>
+                            <span className={styles.graph__xLabel}>{item.day}</span>
                         </div>
                     ))}
                 </div>
@@ -357,22 +350,22 @@ const TasksProgressGraph = () => {
 const Assignments = ({ assignments, onToggle }) => {
     const completedCount = assignments.filter(a => a.status === 'completed').length;
     return (
-        <div className="assignments-card">
-            <div className="card-header">
-                <h3 className="card-title">Assignments ({assignments.length})</h3>
+        <div className={styles.assignmentsCard}>
+            <div className={styles.cardHeader}>
+                <h3 className={styles.cardTitle}>Assignments ({assignments.length})</h3>
                 <span>{completedCount}/{assignments.length} completed</span>
             </div>
-            <ul className="assignments-list">
+            <ul className={styles.assignmentsList}>
                 {assignments.map((item, index) => (
-                    <li key={index} className="assignment-item">
-                        <div className={`assignment-item__checkbox ${item.status}`} onClick={() => onToggle(item.title)}>
-                            {item.status === 'completed' && <Icon name="check" size={16} className="text-white"/>}
+                    <li key={index} className={styles.assignmentItem}>
+                        <div className={`${styles.assignmentItem__checkbox} ${styles[item.status]}`} onClick={() => onToggle(item.title)}>
+                            {item.status === 'completed' && <Icon name="check" size={16} className={styles.textWhite}/>}
                         </div>
-                        <div className="assignment-item__details">
+                        <div className={styles.assignmentItem__details}>
                             <p>{item.title}</p>
                             <small>{item.date}</small>
                         </div>
-                        <div className="assignment-item__grade">
+                        <div className={styles.assignmentItem__grade}>
                             <p>{item.grade}</p>
                             <small>{item.status === 'completed' ? 'Grade' : 'To Do'}</small>
                         </div>
@@ -384,31 +377,31 @@ const Assignments = ({ assignments, onToggle }) => {
 };
 
 const WeeklyProgress = () => (
-    <div className="weekly-progress-card">
-        <div className="card-header">
-            <h3 className="card-title">Weekly</h3>
+    <div className={styles.weeklyProgressCard}>
+        <div className={styles.cardHeader}>
+            <h3 className={styles.cardTitle}>Weekly</h3>
         </div>
-        <div className="weekly-progress__items">
-            <div className="weekly-progress__item">
-                <div className="weekly-progress__details">
+        <div className={styles.weeklyProgress__items}>
+            <div className={styles.weeklyProgress__item}>
+                <div className={styles.weeklyProgress__details}>
                     <p>Time spent</p>
                     <p><strong>18h</strong> <span>120%</span></p>
                 </div>
-                <div className="progress-bar-small"><div className="progress-bar-small__inner bg-orange" style={{width: '80%'}}></div></div>
+                <div className={styles.progressBarSmall}><div className={`${styles.progressBarSmall__inner} ${styles.bgOrange}`} style={{width: '80%'}}></div></div>
             </div>
-            <div className="weekly-progress__item">
-                <div className="weekly-progress__details">
+            <div className={styles.weeklyProgress__item}>
+                <div className={styles.weeklyProgress__details}>
                     <p>Lesson Learnt</p>
                     <p><strong>15h</strong> <span>120%</span></p>
                 </div>
-                <div className="progress-bar-small"><div className="progress-bar-small__inner bg-purple" style={{width: '60%'}}></div></div>
+                <div className={styles.progressBarSmall}><div className={`${styles.progressBarSmall__inner} ${styles.bgPurple}`} style={{width: '60%'}}></div></div>
             </div>
-            <div className="weekly-progress__item">
-                <div className="weekly-progress__details">
+            <div className={styles.weeklyProgress__item}>
+                <div className={styles.weeklyProgress__details}>
                     <p>Exams Passed</p>
                     <p><strong>2h</strong> <span>100%</span></p>
                 </div>
-                 <div className="progress-bar-small"><div className="progress-bar-small__inner bg-green" style={{width: '100%'}}></div></div>
+                 <div className={styles.progressBarSmall}><div className={`${styles.progressBarSmall__inner} ${styles.bgGreen}`} style={{width: '100%'}}></div></div>
             </div>
         </div>
     </div>
@@ -430,8 +423,8 @@ const App = () => {
             progress: 90,
             avatars: ['https://i.pravatar.cc/24?img=1', 'https://i.pravatar.cc/24?img=2'],
             daysLeft: 3,
-            color: 'bg-purple',
-            daysLeftColor: 'text-purple'
+            color: 'bgPurple',
+            daysLeftColor: 'textPurple'
         },
         {
             date: 'Mar 6, 2024',
@@ -440,8 +433,8 @@ const App = () => {
             progress: 30,
             avatars: ['https://i.pravatar.cc/24?img=3', 'https://i.pravatar.cc/24?img=4'],
             daysLeft: 25,
-            color: 'bg-blue',
-            daysLeftColor: 'text-blue'
+            color: 'bgBlue',
+            daysLeftColor: 'textBlue'
         },
         {
             date: 'Mar 8, 2024',
@@ -450,8 +443,8 @@ const App = () => {
             progress: 75,
             avatars: ['https://i.pravatar.cc/24?img=5', 'https://i.pravatar.cc/24?img=6'],
             daysLeft: 7,
-            color: 'bg-orange',
-            daysLeftColor: 'text-orange'
+            color: 'bgOrange',
+            daysLeftColor: 'textOrange'
         },
   ]);
 
@@ -505,502 +498,15 @@ const App = () => {
 
   return (
     <>
-      <style>{`
-        /* --- GLOBAL STYLES & SETUP --- */
-        :root {
-          --primary-purple: #775FFC;
-          --light-purple: #E8E5FB;
-          --dark-purple: #5F33E1;
-          --text-dark: #1E2749;
-          --text-light: #7E8AA9;
-          --bg-main: #F8F8FA;
-          --bg-white: #FFFFFF;
-          --border-color: #ECEEF6;
-          --orange: #FFAB2D;
-          --blue: #3695E5;
-          --green: #2ED47A;
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-        * {
-          box-sizing: border-box;
-          margin: 0;
-          padding: 0;
-        }
-
-        body {
-          font-family: 'Inter', sans-serif;
-          background-color: var(--bg-main);
-          color: var(--text-dark);
-        }
-
-        .dashboard-layout {
-          display: grid;
-          grid-template-columns: 240px 1fr 350px;
-          height: 100vh;
-          padding: 1rem;
-          gap: 1.5rem;
-        }
-
-        .main-content {
-          overflow-y: auto;
-          padding-right: 1rem;
-        }
-        
-        .main-content::-webkit-scrollbar {
-            width: 6px;
-        }
-        .main-content::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 3px;
-        }
-            /* --- TODAY TASK --- */
-        .today-task {
-          background-color: var(--bg-white);
-          border-radius: 1.5rem;
-          padding: 2rem;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 1.5rem;
-        }
-        .today-task__title {
-          font-size: 1.5rem;
-          font-weight: 600;
-          margin-bottom: 0.25rem;
-        }
-        .today-task__subtitle {
-          color: var(--text-light);
-          margin-bottom: 1.5rem;
-        }
-        .today-task__btn {
-          background-color: var(--light-purple);
-          color: var(--primary-purple);
-          border: none;
-          padding: 0.75rem 1.5rem;
-          border-radius: 0.75rem;
-          font-weight: 600;
-          cursor: pointer;
-        }
-        .today-task__image img {
-          max-width: 200px;
-        }
-
-
-        /* --- UTILITY CLASSES --- */
-        .text-white { 
-            color: #FFFFFF;
-        }
-        .card-title {
-          font-size: 1.125rem;
-          font-weight: 600;
-          color: var(--text-dark);
-        }
-        .card-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 1rem;
-        }
-        .card-header span {
-            font-size: 0.875rem;
-            color: var(--text-light);
-        }
-
-        /* --- SIDEBAR --- */
-        .sidebar {
-          background-color: var(--bg-white);
-          border-radius: 1.5rem;
-          padding: 2rem 1.5rem;
-          display: flex;
-          flex-direction: column;
-        }
-        .sidebar__logo {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          margin-bottom: 3rem;
-        }
-        .sidebar__logo-text {
-          font-size: 1.5rem;
-          font-weight: 700;
-        }
-        .sidebar__nav ul {
-          list-style: none;
-        }
-        .sidebar__nav li a {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          padding: 0.875rem 1rem;
-          border-radius: 0.75rem;
-          text-decoration: none;
-          color: var(--text-light);
-          font-weight: 500;
-          transition: all 0.2s ease;
-          cursor: pointer;
-        }
-        .sidebar__nav li.active a, .sidebar__nav li a:hover {
-          background-color: var(--primary-purple);
-          color: white;
-        }
-        .sidebar__nav-count {
-          margin-left: auto;
-          background-color: var(--light-purple);
-          color: var(--primary-purple);
-          font-size: 0.75rem;
-          font-weight: 600;
-          padding: 0.25rem 0.5rem;
-          border-radius: 0.5rem;
-        }
-        .sidebar__nav li.active .sidebar__nav-count {
-            background-color: var(--dark-purple);
-            color: white;
-        }
-        .sidebar__bottom {
-          margin-top: auto;
-        }
-        .sidebar__bottom ul { list-style: none; }
-        .sidebar__bottom li a {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.875rem 1rem;
-            text-decoration: none;
-            color: var(--text-light);
-            font-weight: 500;
-        }
-        sidebar__nav-item-text span{
-            color : var(--text-light);
-          }
-
-        .premium-card-container {
-            position: relative;
-            margin-top: 5rem;
-        }
-
-        .premium-card {
-            background-color: #EDE9FE;
-            padding: 1.5rem;
-            padding-top: 3.5rem;
-            border-radius: calc(var(--radius) * 1.5);
-            text-align: center;
-        }
-        
-        .premium-card__illustration {
-            width: 80px;
-            height: 80px;
-            background-color: #DDD6FE;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 6px solid var(--sidebar-bg);
-        }
-        
-        .premium-card h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin: 0 0 0.5rem;
-        }
-        
-        .premium-card p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin: 0 0 1rem;
-        }
-        
-        .premium-card button {
-            width: 100%;
-            padding: 0.75rem;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: var(--radius);
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        
-        .premium-card button:hover {
-            background-color: #5b21b6;
-        }
-
-       
-
-        /* --- TASK CARD --- */
-        .tasks-progress-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        .task-card {
-          background-color: var(--bg-white);
-          border-radius: 1rem;
-          padding: 1.25rem;
-        }
-        .task-card__header {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-          margin-bottom: 1rem;
-        }
-        .task-card__date, .task-card__category {
-            font-size: 0.75rem;
-            color: var(--text-light);
-        }
-        .task-card__title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin: 0.25rem 0;
-        }
-        .task-card__menu-btn {
-            background: none;
-            border: none;
-            color: var(--text-light);
-            cursor: pointer;
-        }
-        .task-card__progress {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-light);
-        }
-        .progress-bar {
-            height: 6px;
-            background-color: var(--bg-main);
-            border-radius: 3px;
-            margin-bottom: 1rem;
-        }
-        .progress-bar__inner {
-            height: 100%;
-            border-radius: 3px;
-        }
-        .bg-purple { background-color: var(--primary-purple); }
-        .bg-blue { background-color: var(--blue); }
-        .bg-orange { background-color: var(--orange); }
-        .bg-green { background-color: var(--green); }
-        
-        .task-card__footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .task-card__avatars {
-            display: flex;
-            align-items: center;
-        }
-        .task-card__avatars img {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            border: 2px solid white;
-            margin-left: -8px;
-        }
-        .task-card__avatars img:first-child {
-            margin-left: 0;
-        }
-        .task-card__add-btn {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            border: 1px dashed var(--text-light);
-            background: none;
-            color: var(--text-light);
-            margin-left: -8px;
-            z-index: 5;
-            cursor: pointer;
-        }
-        .task-card__days-left {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.5rem;
-        }
-        .text-purple { background-color: #F4F2FF; color: var(--primary-purple); }
-        .text-blue { background-color: #E8F4FC; color: var(--blue); }
-        .text-orange { background-color: #FFF4E4; color: var(--orange); }
-
-        /* --- MAIN AREA BOTTOM SECTION --- */
-        .main-bottom-grid {
-            display: grid;
-            grid-template-columns: 3fr 2fr;
-            gap: 1.5rem;
-        }
-        .main-bottom-right {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        
-        /* --- GRAPH CARD --- */
-        .graph-card {
-            background-color: var(--bg-white);
-            border-radius: 1rem;
-            padding: 1.5rem;
-        }
-        .graph {
-            display: flex;
-            height: 180px;
-        }
-        .graph__y-axis {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: var(--text-light);
-            margin-right: 1rem;
-            text-align: right;
-        }
-        .graph__bars {
-            display: flex;
-            flex-grow: 1;
-            justify-content: space-around;
-            align-items: flex-end;
-            border-left: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            padding-left: 1rem;
-        }
-        .graph__bar-container {
-            width: 10%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-        }
-        .graph__bar {
-            width: 100%;
-            background-color: var(--light-purple);
-            border-radius: 4px 4px 0 0;
-            position: relative;
-        }
-        .graph__bar::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 60%; /* Represents the darker part of the bar */
-            background-color: var(--primary-purple);
-            border-radius: 4px 4px 0 0;
-        }
-        .graph__x-label {
-            font-size: 0.75rem;
-            color: var(--text-light);
-            margin-top: 0.5rem;
-        }
-
-        /* --- ASSIGNMENTS CARD --- */
-        .assignments-card {
-             background-color: var(--bg-white);
-             border-radius: 1rem;
-             padding: 1.5rem;
-        }
-        .assignments-list { list-style: none; }
-        .assignment-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .assignment-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-        .assignment-item:first-child {
-            padding-top: 0;
-        }
-        .assignment-item__checkbox {
-            width: 20px;
-            height: 20px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-        .assignment-item__checkbox.completed {
-            background-color: var(--primary-purple);
-        }
-        .assignment-item__checkbox.todo {
-            border: 2px solid var(--border-color);
-        }
-        .assignment-item__details {
-            flex-grow: 1;
-        }
-        .assignment-item__details p { font-weight: 500; font-size: 0.875rem; }
-        .assignment-item__details small, .assignment-item__grade small {
-            font-size: 0.75rem;
-            color: var(--text-light);
-        }
-        .assignment-item__grade { text-align: right; }
-        .assignment-item__grade p { font-weight: 500; font-size: 0.875rem; }
-
-        /* Weekly Progress Card */
-        .weekly-progress-card {
-             background-color: var(--bg-white);
-             border-radius: 1rem;
-             padding: 1.5rem;
-        }
-        .weekly-progress__items {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        .weekly-progress__details {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 0.5rem;
-        }
-        .weekly-progress__details p:first-child {
-            font-size: 0.875rem;
-            color: var(--text-light);
-        }
-        .weekly-progress__details p:last-child {
-            font-size: 0.875rem;
-        }
-        .weekly-progress__details strong {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-        .weekly-progress__details span {
-            color: var(--green);
-            font-weight: 500;
-            font-size: 0.75rem;
-            margin-left: 0.25rem;
-        }
-        .progress-bar-small {
-            height: 4px;
-            background-color: var(--bg-main);
-            border-radius: 2px;
-        }
-        .progress-bar-small__inner {
-            height: 100%;
-            border-radius: 2px;
-        }
-        }
-      `}</style>
-      <div className="dashboard-layout">
+      <div className={styles.dashboardLayout}>
         <Sidebar navItems={navItems} onNavClick={handleNavClick} />
-        <main className="main-content">
+        <main className={styles.mainContent}>
           <Header />
           <TodayTask />
           <TasksProgress tasks={tasks}/>
-          <div className="main-bottom-grid">
+          <div className={styles.mainBottomGrid}>
             <TasksProgressGraph />
-            <div className="main-bottom-right">
+            <div className={styles.mainBottomRight}>
                 <WeeklyProgress />
                 <Assignments assignments={assignments} onToggle={handleToggleAssignment} />
             </div>
@@ -1018,4 +524,7 @@ const App = () => {
 };
 
 export default App;
+
+// Export individual components for use in other files
+export { Sidebar, TodayTask, TaskCard, TasksProgress, TasksProgressGraph, Assignments, WeeklyProgress };
 

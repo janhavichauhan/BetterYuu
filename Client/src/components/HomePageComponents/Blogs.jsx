@@ -30,6 +30,71 @@ const GlobalStyles = () => (
             max-width: 1200px;
             margin: auto;
         }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .blog-creator-container {
+                padding: 1rem;
+            }
+            .header h1 {
+                font-size: 1.75rem;
+            }
+            .creator-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .form-section {
+                padding: 1.5rem;
+            }
+            .file-upload-area {
+                padding: 1.5rem;
+            }
+            .file-upload-area .icon {
+                width: 36px;
+                height: 36px;
+            }
+            .form-input, .form-textarea {
+                padding: 0.6rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            .submit-btn {
+                padding: 0.8rem;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .blog-creator-container {
+                padding: 0.75rem;
+            }
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            .header p {
+                font-size: 0.9rem;
+            }
+            .form-section {
+                padding: 1rem;
+            }
+            .file-upload-area {
+                padding: 1rem;
+            }
+            .file-upload-area .icon {
+                width: 32px;
+                height: 32px;
+            }
+            .form-input, .form-textarea {
+                padding: 0.5rem 0.6rem;
+                font-size: 0.85rem;
+            }
+            .submit-btn {
+                padding: 0.7rem;
+                font-size: 0.9rem;
+            }
+            .preview-card {
+                margin-top: 1rem;
+            }
+        }
         .header {
             margin-bottom: 2rem;
         }

@@ -15,6 +15,258 @@
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
     }
     
+    /* Mobile Responsive */
+    @media (max-width: 1024px) {
+      .team-chat-app {
+        grid-template-columns: 280px 1fr 280px;
+        border-radius: 16px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .team-chat-app {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr auto;
+        height: 100vh;
+        border-radius: 0;
+        margin: 0;
+        max-width: none;
+      }
+      
+      .message-list {
+        grid-row: 1;
+        height: auto;
+        max-height: 200px;
+        padding: 15px;
+        border-right: none;
+        border-bottom: 1px solid #ECEFF1;
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+      
+      .message-list-header {
+        margin-bottom: 10px;
+      }
+      
+      .message-list-header h2 {
+        font-size: 18px;
+      }
+      
+      .search-bar {
+        margin-bottom: 10px;
+      }
+      
+      .online-now {
+        margin-bottom: 10px;
+      }
+      
+      .chat-threads {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        padding-bottom: 5px;
+      }
+      
+      .thread-item {
+        min-width: 200px;
+        margin-bottom: 0;
+      }
+      
+      .chat-window {
+        grid-row: 2;
+        height: calc(100vh - 200px - 120px);
+      }
+      
+      .chat-header {
+        padding: 15px 20px;
+      }
+      
+      .chat-header-info h3 {
+        font-size: 16px;
+      }
+      
+      .chat-header-actions {
+        gap: 15px;
+      }
+      
+      .chat-body {
+        padding: 20px;
+      }
+      
+      .message-content {
+        max-width: 85%;
+      }
+      
+      .timeline {
+        grid-row: 3;
+        height: auto;
+        max-height: 120px;
+        padding: 15px;
+        border-left: none;
+        border-top: 1px solid #ECEFF1;
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+      
+      .timeline-header h2 {
+        font-size: 18px;
+      }
+      
+      .calendar {
+        margin-bottom: 15px;
+      }
+      
+      .plans-for-day {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        padding-bottom: 5px;
+      }
+      
+      .plan-item {
+        min-width: 150px;
+        margin-bottom: 0;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .message-list {
+        padding: 10px;
+        max-height: 150px;
+      }
+      
+      .message-list-header h2 {
+        font-size: 16px;
+      }
+      
+      .search-bar input {
+        padding: 8px 10px 8px 35px;
+        font-size: 12px;
+      }
+      
+      .thread-item {
+        min-width: 160px;
+        padding: 10px 8px;
+      }
+      
+      .thread-item .avatar img,
+      .thread-item .avatar .placeholder {
+        width: 36px;
+        height: 36px;
+      }
+      
+      .chat-window {
+        height: calc(100vh - 150px - 100px);
+      }
+      
+      .chat-header {
+        padding: 10px 15px;
+      }
+      
+      .chat-header-info .avatar {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+        margin-right: 10px;
+      }
+      
+      .chat-header-info h3 {
+        font-size: 14px;
+      }
+      
+      .chat-header-info p {
+        font-size: 12px;
+      }
+      
+      .chat-header-actions {
+        gap: 10px;
+      }
+      
+      .chat-header-actions .user-profile img {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .chat-body {
+        padding: 15px;
+      }
+      
+      .message-item .avatar {
+        width: 32px;
+        height: 32px;
+        margin-right: 10px;
+      }
+      
+      .message-bubble {
+        padding: 10px;
+        font-size: 14px;
+      }
+      
+      .chat-input {
+        padding: 15px;
+      }
+      
+      .chat-input input {
+        font-size: 14px;
+      }
+      
+      .chat-input .input-actions {
+        gap: 15px;
+      }
+      
+      .timeline {
+        padding: 10px;
+        max-height: 100px;
+      }
+      
+      .timeline-header h2 {
+        font-size: 16px;
+      }
+      
+      .add-event-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+      
+      .calendar-header h3 {
+        font-size: 14px;
+      }
+      
+      .calendar-grid {
+        gap: 5px;
+      }
+      
+      .calendar-grid span {
+        padding: 3px;
+        font-size: 12px;
+      }
+      
+      .calendar-grid .day {
+        height: 24px;
+        width: 24px;
+        font-size: 12px;
+      }
+      
+      .plan-item {
+        min-width: 120px;
+        padding: 10px;
+      }
+      
+      .plan-icon {
+        width: 32px;
+        height: 32px;
+        margin-right: 10px;
+      }
+      
+      .plan-details h4 {
+        font-size: 12px;
+      }
+      
+      .plan-details p {
+        font-size: 10px;
+      }
+    }
+    
     /* General styles */
     button {
         background: none;
