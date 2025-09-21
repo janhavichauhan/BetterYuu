@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   Button,
 } from '@mui/material';
-import AIAnalyzerModal from './Ai_dream_analyzer';
+import AIAnalyzerModal from './AIAnalyzerModal';
 
 // All styling is now included directly in a style block.
 // The original SASS file has been replaced to meet the single-file requirement.

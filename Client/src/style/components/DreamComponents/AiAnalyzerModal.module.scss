@@ -1,0 +1,18 @@
+/* src/style/components/DreamComponents/AiAnalyzerModal.module.scss */
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  max-width: 90%;
+  background-color: #fff; /* A neutral background for the modal card */
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  border-radius: 12px;
+  outline: none;
+  max-height: 80vh;
+  overflow-y: auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

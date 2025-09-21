@@ -17,7 +17,7 @@ import Group from '../components/HomePageComponents/GroupChat.jsx';
 import AddDreams from '../components/DreamComponents/Add_dream.jsx';
 import ViewDreams from '../components/DreamComponents/view_dream.jsx';
 import YourBlogs from '../components/DreamComponents/YourBlog.jsx';
-import ProfilePage from '../components/HomePageComponents/ProfilePage.jsx';
+import ProfilePage from '../components/HomePageComponents/ProfilePageConcious.jsx';
 function AppRoutes() {
   return (
         <Routes>
